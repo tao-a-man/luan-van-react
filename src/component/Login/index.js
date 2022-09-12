@@ -3,6 +3,7 @@ import userService from '../../services/userService';
 import ModalCreateUser from '../ModalCreateUser';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './Login.scss';
 import { userLoginSuccess } from '../../store/actions';
@@ -30,6 +31,11 @@ class Login extends Component {
         });
     };
 
+    handleCreateUser = async (user) => {
+        const respon = await userService.userServiceCreateUser(user);
+        return respon;
+    };
+
     handleOnClick = async () => {
         this.setState({
             errMessage: '',
@@ -42,7 +48,7 @@ class Login extends Component {
                     errMessage: respon.errMessage,
                 });
             } else if (respon && respon.errCode == 0) {
-                this.props.userLoginSuccess(respon.token);
+                this.props.userLoginSuccess(respon);
             }
         } catch (err) {
             if (err.response.data) {
@@ -65,8 +71,12 @@ class Login extends Component {
     render() {
         return (
             <>
-                {this.props.token !== null ? <Navigate to="/User" /> : ''}
-                <ModalCreateUser isShowModal={this.state.isShowModal} toggle={this.toggle}></ModalCreateUser>
+                {this.props.roleId === 'R1' ? <Navigate to="/User" /> : this.props.roleId ? <Navigate to="/" /> : ''}
+                <ModalCreateUser
+                    handleCreateUser={this.handleCreateUser}
+                    isShowModal={this.state.isShowModal}
+                    toggle={this.toggle}
+                ></ModalCreateUser>
                 <div className="login-background">
                     <div className="login-container">
                         <div className="login-content">
@@ -75,7 +85,7 @@ class Login extends Component {
                                 <div className="input-group input-group-lg">
                                     <div className="input-group-prepend">
                                         <span className="input-label">
-                                            <i className="fas fa-user"></i>
+                                            <FontAwesomeIcon icon="fa-solid fa-user" />
                                         </span>
                                     </div>
                                     <input
@@ -91,7 +101,7 @@ class Login extends Component {
                                 <div className="input-group input-group-lg input-parent">
                                     <div className="input-group-prepend">
                                         <span className="input-label">
-                                            <i className="fas fa-lock"></i>
+                                            <FontAwesomeIcon icon="fa-solid fa-lock" />
                                         </span>
                                     </div>
                                     <input
@@ -131,10 +141,13 @@ class Login extends Component {
 const mapStateToProps = (state) => {
     return {
         token: state.token,
+        roleId: state.roleId,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return { userLoginSuccess: (token) => dispatch(userLoginSuccess(token)) };
+    return {
+        userLoginSuccess: (respon) => dispatch(userLoginSuccess(respon)),
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

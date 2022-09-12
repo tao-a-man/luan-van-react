@@ -1,9 +1,8 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Form from 'react-bootstrap/Form';
 import Button from '../Button';
 import swal from 'sweetalert';
-import userService from '../../services/userService';
-import Calendar from 'react-calendar';
 
 class UserCreateModal extends React.PureComponent {
     constructor(props) {
@@ -12,7 +11,9 @@ class UserCreateModal extends React.PureComponent {
             email: '',
             password: '',
             passwordConfirm: '',
-            fullName: '',
+            firstName: '',
+            lastName: '',
+            gender: '',
             age: '',
         };
     }
@@ -29,6 +30,11 @@ class UserCreateModal extends React.PureComponent {
     };
 
     handleValidateForm = () => {
+        for (let key in this.state) {
+            if (!this.state[key]) {
+                return { type: false, errMessage: 'All fields must be not null' };
+            }
+        }
         if (this.state.email && this.state.password) {
             if (
                 this.state.email.match(
@@ -53,7 +59,9 @@ class UserCreateModal extends React.PureComponent {
             email: '',
             password: '',
             passwordConfirm: '',
-            fullName: '',
+            firstName: '',
+            lastName: '',
+            gender: '',
             age: '',
         });
     };
@@ -64,13 +72,16 @@ class UserCreateModal extends React.PureComponent {
             const user = { ...this.state };
             delete user.passwordConfirm;
             user.age = +user.age;
-            const respon = await userService.userServiceCreateUser(user);
-            console.log(respon);
+            if (this.props.roleId) {
+                user.roleId = 'R2';
+            }
+            const respon = await this.props.handleCreateUser(user);
             if (respon.errCode === 0) {
                 swal({
                     title: 'Create Success!',
                     icon: 'success',
                 });
+                this.toggle();
                 this.handleResetState();
             } else {
                 swal({
@@ -89,7 +100,6 @@ class UserCreateModal extends React.PureComponent {
     };
 
     render() {
-        const genders = this.props.gender;
         return (
             <div>
                 <Modal zIndex="2" size="lg" isOpen={this.props.isShowModal} toggle={this.toggle}>
@@ -136,22 +146,47 @@ class UserCreateModal extends React.PureComponent {
                                 />
                             </div>
                             <div className="form-group col-6">
-                                <label htmlFor="fullName">Full Name</label>
+                                <label htmlFor="firstName">First Name</label>
                                 <input
-                                    value={this.state.fullName}
+                                    value={this.state.firstName}
                                     type="text"
                                     className="form-control"
-                                    name="fullName"
-                                    id="fullName"
-                                    placeholder="Enter your full name"
+                                    name="firstName"
+                                    id="firstName"
+                                    placeholder="Enter your first name"
                                     onChange={(e) => this.handleChangeInput(e)}
                                 />
                             </div>
                             <div className="form-group col-6">
-                                <label htmlFor="age">age</label>
+                                <label htmlFor="lastName">Last Name</label>
+                                <input
+                                    value={this.state.lastName}
+                                    type="text"
+                                    className="form-control"
+                                    name="lastName"
+                                    id="lastName"
+                                    placeholder="Enter your last name"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                />
+                            </div>
+                            <div className="form-group col-6">
+                                <label htmlFor="lastName">Gender</label>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="gender"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                >
+                                    <option hidden>Choice Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    <option value="O">Other</option>
+                                </Form.Select>
+                            </div>
+                            <div className="form-group col-6">
+                                <label htmlFor="age">Age</label>
                                 <input
                                     value={this.state.age}
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     name="age"
                                     id="age"

@@ -9,24 +9,31 @@ import Button from '../../component/Button';
 import { userLogoutSuccess } from '../../store/actions';
 import userService from '../../services/userService';
 import ModalEditUser from '../../component/ModalEditUser';
+import ModalCreateUser from '../../component/ModalCreateUser';
 
 class User extends Component {
     constructor(props) {
         super(props);
     }
 
-    state = { userSearch: [], user: [], isShowEditModal: { type: false, user: {} }, valueSearch: '' };
+    state = {
+        userSearch: [],
+        user: [],
+        isShowEditModal: { type: false, user: {} },
+        valueSearch: '',
+        isShowCreateModal: false,
+    };
 
     componentDidMount() {
         this.getUser(this.props.token);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(this.state.valueSearch, nextState.valueSearch);
         if (this.state.valueSearch !== nextState.valueSearch) {
             const newUsers = this.state.userSearch.filter((item) => {
                 return (
-                    item.fullName.match(nextState.valueSearch) ||
+                    item.firstName.match(nextState.valueSearch) ||
+                    item.lastName.match(nextState.valueSearch) ||
                     item.id.toString().match(nextState.valueSearch) ||
                     item.age.toString().match(nextState.valueSearch)
                 );
@@ -54,10 +61,19 @@ class User extends Component {
     handleToggleEditModal = () => {
         this.setState({ isShowEditModal: { ...this.state.isShowEditModal, type: !this.state.isShowEditModal } });
     };
+    handleToggleCreateModal = () => {
+        this.setState({ isShowCreateModal: !this.state.isShowCreateModal });
+    };
+
+    handleCreateUser = async (user) => {
+        const respon = await userService.userServiceCreateUser(user);
+        await this.getUser(this.props.token);
+        return respon;
+    };
 
     handleEditUser = async (user) => {
         const respon = await userService.userServiceEditUser(user, this.props.token);
-        this.getUser(this.props.token);
+        await this.getUser(this.props.token);
         return respon;
     };
 
@@ -75,7 +91,7 @@ class User extends Component {
         const users = this.state.user;
         return (
             <div>
-                {this.props.token === null ? (
+                {this.props.roleId !== 'R1' ? (
                     <Navigate to="/" />
                 ) : (
                     <>
@@ -90,7 +106,16 @@ class User extends Component {
                         <Button onClick={this.handleLoggout} small primary type="submit">
                             Logout
                         </Button>
-
+                        <Button onClick={this.handleToggleCreateModal} small primary type="submit">
+                            Create Doctor
+                        </Button>
+                        <ModalCreateUser
+                            toggle={this.handleToggleCreateModal}
+                            isShowModal={this.state.isShowCreateModal}
+                            getUser={this.getUser}
+                            handleCreateUser={this.handleCreateUser}
+                            roleId="R2"
+                        ></ModalCreateUser>
                         <InputGroup className="mb-3 mt-4">
                             <InputGroup.Text id="basic-addon1">Search</InputGroup.Text>
                             <Form.Control
@@ -108,8 +133,11 @@ class User extends Component {
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>FullName</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th>Gender</th>
                                     <th>Age</th>
+                                    <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -118,8 +146,11 @@ class User extends Component {
                                     return (
                                         <tr>
                                             <td>{user.id}</td>
-                                            <td>{user.fullName}</td>
+                                            <td>{user.firstName}</td>
+                                            <td>{user.lastName}</td>
+                                            <td>{user.gender}</td>
                                             <td>{user.age}</td>
+                                            <td>{user.roleData.roleId}</td>
                                             <td>
                                                 <button
                                                     onClick={(e) => this.handleShowEditModal(user)}
@@ -148,6 +179,7 @@ class User extends Component {
 const mapStateToProps = (state) => {
     return {
         token: state.token,
+        roleId: state.roleId,
     };
 };
 const mapDispatchToProps = (dispatch) => {

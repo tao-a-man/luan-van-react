@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Button from '../Button';
+import Form from 'react-bootstrap/Form';
 import swal from 'sweetalert';
 
 class UserEditModal extends React.Component {
@@ -8,14 +9,19 @@ class UserEditModal extends React.Component {
         super(props);
         this.state = {
             id: '',
-            fullName: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            gender: '',
             age: '',
+            roleId: '',
         };
     }
 
     componentDidMount() {
         this.setState({
             ...this.props.user,
+            roleId: this.props.user.roleData.roleId,
         });
     }
 
@@ -31,23 +37,39 @@ class UserEditModal extends React.Component {
     };
 
     handleValidateForm = () => {
-        if (this.state.fullName && this.state.age) {
-            return true;
-        } else return false;
+        for (let key in this.state) {
+            if (!this.state[key]) {
+                return { type: false, errMessage: 'All fields must be not null' };
+            }
+        }
+        if (this.state.email && this.state.password) {
+            if (
+                this.state.email.match(
+                    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                )
+            ) {
+            } else {
+                return { type: false, errMessage: 'Invalid Email' };
+            }
+        } else {
+            return { type: false, errMessage: 'Email or Password required not null' };
+        }
     };
 
     handleResetState = () => {
         this.setState({
             id: '',
             email: '',
-            fullName: '',
+            firstName: '',
+            lastName: '',
+            gender: '',
             age: '',
+            roleId: '',
         });
     };
 
     handleCreateUserEditModal = async () => {
         const valid = this.handleValidateForm();
-        console.log(valid);
         if (valid) {
             const user = this.state;
             const respon = await this.props.handleEditUser(user);
@@ -75,7 +97,6 @@ class UserEditModal extends React.Component {
     };
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <Modal zIndex="2" size="lg" isOpen={this.props.isOpen} toggle={this.toggle}>
@@ -86,14 +107,26 @@ class UserEditModal extends React.Component {
                         <div className="row">
                             <input value={this.state.id} hidden disabled></input>
                             <div className="form-group col-6">
-                                <label htmlFor="fullName">Full Name</label>
+                                <label htmlFor="firstName">First Name</label>
                                 <input
-                                    value={this.state.fullName}
+                                    value={this.state.firstName}
                                     type="text"
                                     className="form-control"
-                                    name="fullName"
-                                    id="fullName"
-                                    placeholder="Enter your fullName"
+                                    name="firstName"
+                                    id="firstName"
+                                    placeholder="Enter your firstName"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                />
+                            </div>
+                            <div className="form-group col-6">
+                                <label htmlFor="lastName">Last Name</label>
+                                <input
+                                    value={this.state.lastName}
+                                    type="text"
+                                    className="form-control"
+                                    name="lastName"
+                                    id="lastName"
+                                    placeholder="Enter your lastName"
                                     onChange={(e) => this.handleChangeInput(e)}
                                 />
                             </div>
@@ -101,13 +134,41 @@ class UserEditModal extends React.Component {
                                 <label htmlFor="age">Age</label>
                                 <input
                                     value={this.state.age}
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     name="age"
                                     id="age"
-                                    placeholder="Enter your Age"
+                                    placeholder="Enter your age"
                                     onChange={(e) => this.handleChangeInput(e)}
                                 />
+                            </div>
+                            <div className="form-group col-6">
+                                <label>Gender</label>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="gender"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                    defaultValue={this.state.gender}
+                                >
+                                    <option hidden>Choice Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    <option value="O">Other</option>
+                                </Form.Select>
+                            </div>
+                            <div className="form-group col-6">
+                                <label>RoleId</label>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="roleId"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                    defaultValue={this.state.roleId}
+                                >
+                                    <option hidden>Choice RoleId</option>
+                                    <option value="R1">Admin</option>
+                                    <option value="R2">Doctor</option>
+                                    <option value="R3">User</option>
+                                </Form.Select>
                             </div>
                         </div>
                     </ModalBody>

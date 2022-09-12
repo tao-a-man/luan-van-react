@@ -1,0 +1,41 @@
+.home-content {
+    position: relative;
+    filter: grayscale(10%);
+    height: 100vh;
+
+    .home-content-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        filter: drop-shadow(3px 3px 10px black);
+        .title {
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 5px 4px 17px black;
+        }
+        .sub-title {
+            font-size: 30px;
+            text-shadow: 5px 4px 17px black;
+            color: #fff;
+            margin: 16px 0px 66px;
+        }
+    }
+    .home-content-search {
+        width: 400px;
+        margin: 0 auto;
+    }
+    .home-option {
+        position: absolute;
+        bottom: 68px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+        .item {
+            display: flex;
+            flex-direction: column;
+            font-size: 30px;
+            align-items: center;
+        }
+    }
+}
