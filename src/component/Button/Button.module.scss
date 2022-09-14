@@ -69,6 +69,20 @@
         // background: linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
     }
 }
+.navigate {
+    background-color: gray;
+    color: #fff;
+
+    &:hover {
+        opacity: 0.8;
+        // background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
+    }
+
+    &:active {
+        opacity: 1;
+        // background: linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+    }
+}
 
 .outline {
     color: #000;

@@ -1,6 +1,6 @@
 .home-header-container {
     height: 70px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.8);
 
     .home-header-content {
         height: 100%;
@@ -31,10 +31,11 @@
                 display: flex;
                 align-items: center;
                 flex-direction: column;
-
                 .title {
+                    color: #0eab42;
                 }
                 .description {
+                    color: rgb(77, 77, 77);
                 }
             }
         }

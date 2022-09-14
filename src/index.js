@@ -16,6 +16,9 @@ import Router from './Router';
 // Tranlate
 import IntlProviderWrapper from './hoc/IntlProviderWrapper';
 
+// Style
+import './style/styles.scss';
+
 const renderApp = () => {
     ReactDOM.render(
         <Provider store={store}>

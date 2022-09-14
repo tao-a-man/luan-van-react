@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import appService from '../../../services/appService';
 import './HomeContent.scss';
 
 class HomeContent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { commodities: [] };
+    }
+    async componentDidMount() {
+        const commodities = await appService.getCommodities();
+        this.setState({ commodities: commodities.commodities });
+    }
     render() {
         return (
             <div className="home-content">
@@ -10,26 +19,15 @@ class HomeContent extends Component {
                     <span className="sub-title">Uy tín - Tận tâm - Chất lượng</span>
                 </div>
                 <div className="home-option">
-                    <div className="item">
-                        <i className="fas fa-hospital"></i>
-                        <span>Khám chuyên khoa</span>
-                    </div>
-                    <div className="item">
-                        <i className="fas fa-hospital"></i>
-                        <span>Khám chuyên khoa</span>
-                    </div>
-                    <div className="item">
-                        <i className="fas fa-hospital"></i>
-                        <span>Khám chuyên khoa</span>
-                    </div>
-                    <div className="item">
-                        <i className="fas fa-hospital"></i>
-                        <span>Khám chuyên khoa</span>
-                    </div>
-                    <div className="item">
-                        <i className="fas fa-hospital"></i>
-                        <span>Khám chuyên khoa</span>
-                    </div>
+                    {this.state.commodities.map((item) => {
+                        return (
+                            <div className="item">
+                                <i className="fas fa-hospital"></i>
+                                <h3>{item.name}</h3>
+                                <p>Thiết bị {item.name}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         );

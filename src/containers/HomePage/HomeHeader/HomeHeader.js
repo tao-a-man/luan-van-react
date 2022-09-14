@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import { userLogoutSuccess } from '../../../store/actions';
 import Button from '../../../component/Button';
 import './HomeHeader.scss';
-import { Link } from 'react-router-dom';
 import { LANGUAGES } from '../../../utils';
+import { withParamsAndNavigate } from '../../../hoc/withParamsAndNavigate';
+import appService from '../../../services/appService';
 
 class HomeHeader extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            specialist: [],
+        };
+    }
+    async componentDidMount() {
+        const respon = await appService.getSpecialist();
+        this.setState({ specialist: respon.specialist });
+    }
     render() {
         return (
             <div className="home-header-container">
@@ -18,32 +29,28 @@ class HomeHeader extends Component {
                         <div className="logo"></div>
                     </div>
                     <div className="center-content">
-                        <div className="item">
-                            <h3 className="title">
-                                <FormattedMessage id="homeHeader.specialist" />
-                            </h3>
-                            <p className="description">description</p>
-                        </div>
-                        <div className="item">
-                            <h3 className="title">item</h3>
-                            <p className="description">description</p>
-                        </div>
-                        <div className="item">
-                            <h3 className="title">item</h3>
-                            <p className="description">description</p>
-                        </div>
-                        <div className="item">
-                            <h3 className="title">item</h3>
-                            <p className="description">description</p>
-                        </div>
+                        {this.state.specialist.map((item) => {
+                            return (
+                                <Link to={`/Specialist/${item.id}`}>
+                                    <div className="item">
+                                        <h5 className="title">{item.name}</h5>
+                                        <p className="description">Khám {item.name}</p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
                     </div>
                     <div className="right-content">
                         {this.props.token === null ? (
-                            <Link to="/Login">
-                                <Button primary iconLeft={<FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />}>
-                                    Login
-                                </Button>
-                            </Link>
+                            <Button
+                                onClick={() => {
+                                    this.props.navigate('/Login');
+                                }}
+                                primary
+                                iconLeft={<FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />}
+                            >
+                                Login
+                            </Button>
                         ) : (
                             <Button
                                 onClick={() => {
@@ -89,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
     return { userLogoutSuccess: () => dispatch(userLogoutSuccess()) };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(withParamsAndNavigate(HomeHeader));

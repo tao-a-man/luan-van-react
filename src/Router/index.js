@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import App from '../containers/App';
-import User from '../containers/User';
+import Manager from '../containers/Manager';
 import Login from '../component/Login';
+import Specialist from '../containers/Specialist';
+import DeleteEditDoctor from '../containers/DeleteEditDoctor';
 
 class Router extends Component {
     constructor(props) {
@@ -14,8 +16,11 @@ class Router extends Component {
         return (
             <Routes>
                 <Route path="/" element={<App />}></Route>
-                <Route path="/User" element={<User />}></Route>
+                <Route path="/Manager" element={<Manager />}>
+                    <Route index path="Doctor" element={<DeleteEditDoctor />}></Route>
+                </Route>
                 <Route path="/Login" element={<Login />}></Route>
+                <Route path="/Specialist/:id" element={<Specialist />}></Route>
             </Routes>
         );
     }
