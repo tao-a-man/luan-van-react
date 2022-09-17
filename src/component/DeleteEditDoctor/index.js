@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import Button from '../../component/Button';
+import Button from '../Button';
 import { userLogoutSuccess } from '../../store/actions';
 import userService from '../../services/userService';
-import ModalEditUser from '../../component/ModalEditUser';
-import ModalCreateUser from '../../component/ModalCreateUser';
+import ModalEditUser from '../ModalEditUser';
+import ModalCreateUser from '../ModalCreateUser';
+import { Link } from 'react-router-dom';
 
 class Manager extends Component {
     constructor(props) {
@@ -155,10 +155,15 @@ class Manager extends Component {
                                         </button>
                                         <button
                                             onClick={(e) => this.handleDeleteUser(user.id)}
-                                            className="btn btn-danger btn-custom"
+                                            className="btn btn-danger btn-custom ms-2"
                                         >
                                             Delete
                                         </button>
+                                        <Link
+                                            to={`/Manager/EditDetailDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
+                                        >
+                                            <button className="btn btn-info btn-custom">Edit Detail Doctor</button>
+                                        </Link>
                                     </td>
                                 </tr>
                             );

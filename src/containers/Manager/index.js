@@ -22,10 +22,10 @@ class Manager extends Component {
                     <Navigate to="/" />
                 ) : (
                     <>
-                        <Button onClick={this.handleLoggout} navigate small type="submit">
+                        <Button className="ms-4" onClick={this.handleLoggout} navigate small type="submit">
                             Logout
                         </Button>
-                        <Link to="/Manager/Doctor">
+                        <Link to="/Manager">
                             <Button navigate small type="submit">
                                 Manager Doctor
                             </Button>

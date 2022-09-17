@@ -3,6 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Button from '../Button';
 import Form from 'react-bootstrap/Form';
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UserEditModal extends React.Component {
     constructor(props) {
@@ -176,7 +177,7 @@ class UserEditModal extends React.Component {
                         <Button
                             onClick={this.toggle}
                             small
-                            iconLeft={<i className="fas fa-times"></i>}
+                            iconLeft={<FontAwesomeIcon icon="fa-solid fa-xmark" />}
                             outline
                             type="submit"
                         >
@@ -185,7 +186,7 @@ class UserEditModal extends React.Component {
                         <Button
                             onClick={this.handleCreateUserEditModal}
                             small
-                            iconLeft={<i className="fas fa-check"></i>}
+                            iconLeft={<FontAwesomeIcon icon="fa-solid fa-check" />}
                             primary
                             type="submit"
                         >

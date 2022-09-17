@@ -5,7 +5,8 @@ import App from '../containers/App';
 import Manager from '../containers/Manager';
 import Login from '../component/Login';
 import Specialist from '../containers/Specialist';
-import DeleteEditDoctor from '../containers/DeleteEditDoctor';
+import DeleteEditDoctor from '../component/DeleteEditDoctor';
+import EditDetailDoctor from '../component/EditDetailDoctor';
 
 class Router extends Component {
     constructor(props) {
@@ -17,7 +18,11 @@ class Router extends Component {
             <Routes>
                 <Route path="/" element={<App />}></Route>
                 <Route path="/Manager" element={<Manager />}>
-                    <Route index path="Doctor" element={<DeleteEditDoctor />}></Route>
+                    <Route index element={<DeleteEditDoctor />}></Route>
+                    <Route
+                        path="/Manager/EditDetailDoctor/:id/:username/:fullname/:age"
+                        element={<EditDetailDoctor />}
+                    ></Route>
                 </Route>
                 <Route path="/Login" element={<Login />}></Route>
                 <Route path="/Specialist/:id" element={<Specialist />}></Route>
