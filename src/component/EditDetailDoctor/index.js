@@ -83,7 +83,15 @@ class EditDetailDoctor extends Component {
         });
     };
     handleEditDetailDoctor = async () => {
-        const respon = await appService.postEditDetailDoctor(this.state);
+        const copyState = { ...this.state };
+        delete copyState.createdAt;
+        delete copyState.isOpenPreview;
+        delete copyState.markdownData;
+        delete copyState.phone;
+        delete copyState.specialist;
+        delete copyState.updatedAt;
+
+        const respon = await appService.postEditDetailDoctor(copyState);
         if (respon.errCode === 0) {
             swal({
                 title: 'Edit Doctor Success!',
@@ -98,7 +106,6 @@ class EditDetailDoctor extends Component {
         }
     };
     render() {
-        console.log(this.state);
         return (
             <div className="row mt-4 ms-2 me-2">
                 <input value={this.state.id} hidden disabled></input>

@@ -7,6 +7,8 @@ import Login from '../component/Login';
 import Specialist from '../containers/Specialist';
 import DeleteEditDoctor from '../component/DeleteEditDoctor';
 import EditDetailDoctor from '../component/EditDetailDoctor';
+import HomeContent from '../containers/HomePage/HomeContent/HomeContent';
+import Gdtest from '../component/GDTEST';
 
 class Router extends Component {
     constructor(props) {
@@ -16,7 +18,10 @@ class Router extends Component {
     render() {
         return (
             <Routes>
-                <Route path="/" element={<App />}></Route>
+                <Route path="/" element={<App />}>
+                    <Route index element={<HomeContent />} />
+                    <Route path="/Specialist/:id" element={<Specialist />}></Route>
+                </Route>
                 <Route path="/Manager" element={<Manager />}>
                     <Route index element={<DeleteEditDoctor />}></Route>
                     <Route
@@ -25,7 +30,7 @@ class Router extends Component {
                     ></Route>
                 </Route>
                 <Route path="/Login" element={<Login />}></Route>
-                <Route path="/Specialist/:id" element={<Specialist />}></Route>
+                <Route path="/DGTest" element={<Gdtest />}></Route>
             </Routes>
         );
     }

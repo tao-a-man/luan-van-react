@@ -145,7 +145,7 @@ class Manager extends Component {
                                     <td>{user.lastName}</td>
                                     <td>{user.gender}</td>
                                     <td>{user.age}</td>
-                                    <td>{user.roleData.roleId}</td>
+                                    <td>{user.managerData.roleId}</td>
                                     <td>
                                         <button
                                             onClick={(e) => this.handleShowEditModal(user)}
