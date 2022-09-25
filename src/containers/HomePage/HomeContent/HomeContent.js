@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import appService from '../../../services/appService';
 import './HomeContent.scss';
 
 class HomeContent extends Component {
     constructor(props) {
         super(props);
     }
-    async componentDidMount() {}
     render() {
         return (
             <div className="home-content">

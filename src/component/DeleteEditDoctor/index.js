@@ -122,7 +122,7 @@ class Manager extends Component {
                     />
                 </InputGroup>
                 <br></br>
-                <Table striped bordered hover>
+                <Table striped bordered hover className="mt-4 ms-4 me-4">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -155,7 +155,7 @@ class Manager extends Component {
                                         </button>
                                         <button
                                             onClick={(e) => this.handleDeleteUser(user.id)}
-                                            className="btn btn-danger btn-custom ms-2"
+                                            className="btn btn-danger btn-custom ms-2 me-2"
                                         >
                                             Delete
                                         </button>

@@ -7,10 +7,6 @@ import Button from '../../component/Button';
 import { userLogoutSuccess } from '../../store/actions';
 
 class Manager extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleLoggout = () => {
         this.props.userLogoutSuccess();
     };
@@ -28,6 +24,11 @@ class Manager extends Component {
                         <Link to="/Manager">
                             <Button navigate small type="submit">
                                 Manager Doctor
+                            </Button>
+                        </Link>
+                        <Link to="/Manager/Specialist">
+                            <Button navigate small type="submit">
+                                Manager Specialist
                             </Button>
                         </Link>
                         <Outlet></Outlet>

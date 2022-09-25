@@ -26,14 +26,16 @@ class HomeHeader extends Component {
             <div className="home-header-container">
                 <div className="home-header-content">
                     <div className="left-content">
-                        <div className="logo"></div>
+                        <Link to="/">
+                            <div className="logo"></div>
+                        </Link>
                     </div>
                     <div className="center-content">
                         {this.state.specialist.map((item) => {
                             return (
                                 <Link to={`/Specialist/${item.id}`}>
                                     <div className="item">
-                                        <h5 className="title">{item.name}</h5>
+                                        <h6 className="title">{item.name}</h6>
                                         <p className="description">Khám {item.name}</p>
                                     </div>
                                 </Link>

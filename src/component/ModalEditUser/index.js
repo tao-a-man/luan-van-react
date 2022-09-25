@@ -22,7 +22,7 @@ class UserEditModal extends React.Component {
     componentDidMount() {
         this.setState({
             ...this.props.user,
-            roleId: this.props.user.roleData.roleId,
+            roleId: this.props.user.managerData.roleId,
         });
     }
 
