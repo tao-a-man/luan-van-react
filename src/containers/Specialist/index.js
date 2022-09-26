@@ -25,12 +25,17 @@ class Specialist extends Component {
     }
     getDoctor = async (id) => {
         const respon = await appService.getAllDoctorByIdOfSpecialist(id);
-        this.setState({ listDoctor: respon.infoDetailDoctor });
+        if (respon.infoDetailDoctor[0]) {
+            respon.infoDetailDoctor.forEach((item, index) => {
+                item.managerData.image = new Buffer(item.managerData.image.data, 'base64').toString('binary');
+            });
+            this.setState({ listDoctor: respon.infoDetailDoctor });
+        }
     };
     render() {
         const listDoctor = this.state.listDoctor;
         const name = listDoctor[0] ? listDoctor[0].managerData.specialistData.name : '';
-        const description = listDoctor[0] ? listDoctor[0].managerData.specialistData.description : '';
+        const description = listDoctor[0] ? listDoctor[0].managerData.description : '';
         const infoSpecialist = `<div><strong>Chuyên Khoa ${name} chuyên tư vấn hỗ trợ điều trị các bệnh lý và triệu chứng:</strong><p>${description}...</p></div>`;
         return (
             <>
@@ -47,8 +52,10 @@ class Specialist extends Component {
                             </Col>
                         </Row>
                     </Container>
+                    {listDoctor.map((item, index) => {
+                        return <SpecialistItem doctor={item}></SpecialistItem>;
+                    })}
                 </div>
-                <SpecialistItem />
             </>
         );
     }

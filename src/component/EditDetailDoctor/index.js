@@ -35,6 +35,8 @@ class EditDetailDoctor extends Component {
             description: '',
             contentHTML: '',
             contentMarkdown: '',
+            position: '',
+            regions: '',
             userId: '',
         };
     }
@@ -260,12 +262,68 @@ class EditDetailDoctor extends Component {
                         ></input>
                     </InputGroup>
                 </div>
-                <div className="form-group col-8" style={{ marginTop: '-46px' }}>
+                <div className="form-group col-4" style={{ marginTop: '-46px' }}>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text for="aa" id="basic-addon1">
+                            Position
+                        </InputGroup.Text>
+                        <Form.Select
+                            aria-label="Default select example"
+                            name="position"
+                            onChange={(e) => this.handleChangeInput(e)}
+                        >
+                            <option hidden>Choice Position</option>
+                            <option value="Bác sĩ" selected={this.state.position === 'Bác sĩ'}>
+                                Bác sĩ
+                            </option>
+                            <option value="Thạc sĩ, Bác sĩ" selected={this.state.position === 'Thạc sĩ, Bác sĩ'}>
+                                Thạc sĩ
+                            </option>
+                            <option value="Tiến sĩ, Bác sĩ" selected={this.state.position === 'Tiến sĩ, Bác sĩ'}>
+                                Tiến sĩ
+                            </option>
+                            <option
+                                value="Phó Giáo sư, Tiến sĩ"
+                                selected={this.state.position === 'Phó Giáo sư, Tiến sĩ'}
+                            >
+                                Phó Giáo sư
+                            </option>
+                            <option value="Giáo sư, Tiến sĩ" selected={this.state.position === 'Giáo sư, Tiến sĩ'}>
+                                Giáo sư
+                            </option>
+                        </Form.Select>
+                    </InputGroup>
+                </div>
+                <div className="form-group col-5" style={{ marginTop: '-46px' }}>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text for="aa" id="basic-addon1">
+                            Regions
+                        </InputGroup.Text>
+                        <Form.Select
+                            aria-label="Default select example"
+                            name="regions"
+                            onChange={(e) => this.handleChangeInput(e)}
+                        >
+                            <option hidden>Choice regions</option>
+                            <option value="Hà Nội" selected={this.state.regions === 'Hà Nội'}>
+                                Hà Nội
+                            </option>
+                            <option value="TP HCM" selected={this.state.regions === 'TP HCM'}>
+                                TP HCM
+                            </option>
+                            <option value="Cần Thơ" selected={this.state.regions === 'Cần Thơ'}>
+                                Cần Thơ
+                            </option>
+                        </Form.Select>
+                    </InputGroup>
+                </div>
+                <div className="form-group col-12">
                     <InputGroup className="mb-3">
                         <InputGroup.Text for="aa" id="basic-addon1">
                             Description
                         </InputGroup.Text>
                         <Form.Control
+                            as="textarea"
                             name="description"
                             value={this.state.description}
                             onChange={(e) => this.handleChangeInput(e)}

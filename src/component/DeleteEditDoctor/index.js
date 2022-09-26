@@ -155,14 +155,19 @@ class Manager extends Component {
                                         </button>
                                         <button
                                             onClick={(e) => this.handleDeleteUser(user.id)}
-                                            className="btn btn-danger btn-custom ms-2 me-2"
+                                            className="btn btn-danger ms-2 me-2"
                                         >
                                             Delete
                                         </button>
                                         <Link
                                             to={`/Manager/EditDetailDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
                                         >
-                                            <button className="btn btn-info btn-custom">Edit Detail Doctor</button>
+                                            <button className="btn btn-info me-2">Edit Detail Doctor</button>
+                                        </Link>
+                                        <Link
+                                            to={`/Manager/ScheduleDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
+                                        >
+                                            <button className="btn btn-success">Schedule</button>
                                         </Link>
                                     </td>
                                 </tr>
