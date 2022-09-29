@@ -66,3 +66,15 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+// test cron
+var CronJob = require('cron').CronJob;
+var job = new CronJob(
+'30 57 \* \* \* \*',
+function () {
+console.log('You will see this message every second');
+},
+null,
+true,
+'Asia/Ho_Chi_Minh',
+);

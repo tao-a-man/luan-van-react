@@ -18,8 +18,21 @@ import IntlProviderWrapper from './hoc/IntlProviderWrapper';
 
 // Style
 import './style/styles.scss';
+// Sevices
+import appService from './services/appService';
 
 const renderApp = () => {
+    // test cron
+    var CronJob = require('cron').CronJob;
+    var job = new CronJob(
+        '0 0 0 * * *',
+        function () {
+            // appService.runScheduleAutomatic();
+        },
+        null,
+        false,
+        'Asia/Ho_Chi_Minh',
+    );
     ReactDOM.render(
         <Provider store={store}>
             {/* <PersistGate loading={<LoadingView />} persistor={persistor}> */}

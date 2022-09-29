@@ -34,6 +34,21 @@ const appService = (function appService(props) {
             const respon = await axios.get(`api/get-doctor-by-specialist?id=${id}`);
             return respon;
         },
+        async getScheduleByDoctorId(id) {
+            const respon = await axios.get(`/api/get/schedule-by-doctor-id?id=${id}`);
+            return respon;
+        },
+        async runScheduleAutomatic() {
+            await axios.post(`/api/create-schedule-automatic`);
+        },
+        async getAllcodeByTime() {
+            const respon = await axios.get('/api/get-all-code-type-time');
+            return respon;
+        },
+        async patchBulkUpdateSchedule(data) {
+            const respon = await axios.patch('/api/bulk-update-schedule', { ...data });
+            return respon;
+        },
     };
 })();
 

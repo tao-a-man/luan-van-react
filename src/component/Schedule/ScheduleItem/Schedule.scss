@@ -1,0 +1,19 @@
+.label-check-time {
+    padding: 8px 16px;
+    background-color: blue;
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 30px !important;
+    cursor: pointer;
+}
+.label-check-time ~ .label-check-time {
+    margin-left: 4px !important;
+}
+.label-check-time.disiable {
+    opacity: 0.3;
+    cursor: no-drop;
+}
+.label-check-time.noactive {
+    background-color: gray;
+    cursor: pointer;
+}
