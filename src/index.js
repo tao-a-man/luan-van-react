@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -33,7 +33,8 @@ const renderApp = () => {
         false,
         'Asia/Ho_Chi_Minh',
     );
-    ReactDOM.render(
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
         <Provider store={store}>
             {/* <PersistGate loading={<LoadingView />} persistor={persistor}> */}
             <PersistGate persistor={persistor}>
@@ -44,7 +45,6 @@ const renderApp = () => {
                 </IntlProviderWrapper>
             </PersistGate>
         </Provider>,
-        document.getElementById('root'),
     );
 };
 

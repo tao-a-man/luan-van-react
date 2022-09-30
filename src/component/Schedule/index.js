@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Form, InputGroup } from 'react-bootstrap';
 import swal from 'sweetalert';
 
 import { withParamsAndNavigate } from '../../hoc/withParamsAndNavigate';

@@ -31,9 +31,9 @@ class HomeHeader extends Component {
                         </Link>
                     </div>
                     <div className="center-content">
-                        {this.state.specialist.map((item) => {
+                        {this.state.specialist.map((item, index) => {
                             return (
-                                <Link to={`/Specialist/${item.id}`}>
+                                <Link key={index} to={`/Specialist/${item.id}`}>
                                     <div className="item">
                                         <h6 className="title">{item.name}</h6>
                                         <p className="description">Khám {item.name}</p>

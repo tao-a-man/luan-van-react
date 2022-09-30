@@ -14,18 +14,19 @@ class Specialist extends Component {
     componentDidMount() {
         this.getDoctor(this.props.params.id);
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = async (nextProps, nextState) => {
         if (nextProps.params.id !== this.props.params.id) {
-            this.getDoctor(nextProps.params.id);
+            await this.getDoctor(nextProps.params.id);
+
             return true;
         } else if (nextState.listDoctor !== this.state.listDoctor) {
             return true;
         }
         return false;
-    }
+    };
     getDoctor = async (id) => {
         const respon = await appService.getAllDoctorByIdOfSpecialist(id);
-        if (respon.infoDetailDoctor[0]) {
+        if (respon.infoDetailDoctor) {
             respon.infoDetailDoctor.forEach((item, index) => {
                 item.managerData.image = new Buffer(item.managerData.image.data, 'base64').toString('binary');
             });
@@ -35,25 +36,23 @@ class Specialist extends Component {
     render() {
         const listDoctor = this.state.listDoctor;
         const name = listDoctor[0] ? listDoctor[0].managerData.specialistData.name : '';
-        const description = listDoctor[0] ? listDoctor[0].managerData.description : '';
+        const description = listDoctor[0] ? listDoctor[0].managerData.specialistData.description : '';
         const infoSpecialist = `<div><strong>Chuyên Khoa ${name} chuyên tư vấn hỗ trợ điều trị các bệnh lý và triệu chứng:</strong><p>${description}...</p></div>`;
         return (
             <>
                 <div className="content pt-4">
-                    <Container fluid="xl" style={{ border: '1px solid black' }}>
+                    <Container fluid="xl">
                         <Row className="justify-content-md-center">
-                            <Col className="title" style={{ border: '1px solid black' }}>
-                                {name}
-                            </Col>
+                            <Col className="title">{name}</Col>
                         </Row>
                         <Row className="justify-content-md-center">
-                            <Col style={{ border: '1px solid black' }}>
+                            <Col>
                                 <div className="mt-4" dangerouslySetInnerHTML={{ __html: infoSpecialist }}></div>
                             </Col>
                         </Row>
                     </Container>
                     {listDoctor.map((item, index) => {
-                        return <SpecialistItem doctor={item}></SpecialistItem>;
+                        return <SpecialistItem key={index} doctor={item}></SpecialistItem>;
                     })}
                 </div>
             </>

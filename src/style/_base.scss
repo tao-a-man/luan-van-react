@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 a {
     text-decoration: none !important;
 }
@@ -5,4 +9,7 @@ a {
     min-width: 120px !important;
     justify-content: flex-end !important;
     cursor: pointer;
+}
+h6 {
+    display: inline-block !important;
 }

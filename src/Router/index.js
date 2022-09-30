@@ -11,6 +11,7 @@ import HomeContent from '../containers/HomePage/HomeContent/HomeContent';
 import CrudSpecialist from '../component/CrudSpecialist';
 import Schedule from '../component/Schedule';
 import Gdtest from '../component/GDTEST';
+import BookingPage from '../component/BookingPage';
 
 class Router extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class Router extends Component {
                 <Route path="/" element={<App />}>
                     <Route index element={<HomeContent />} />
                     <Route path="/Specialist/:id" element={<Specialist />}></Route>
+                    <Route path="/Booking" element={<BookingPage />}></Route>
                 </Route>
                 <Route path="/Manager" element={<Manager />}>
                     <Route index element={<DeleteEditDoctor />}></Route>

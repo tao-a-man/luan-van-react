@@ -6,10 +6,6 @@ const appService = (function appService(props) {
             const respon = await axios.get('/api/get-specialist');
             return respon;
         },
-        async getCommodities() {
-            const respon = await axios.get('/api/get-commodities');
-            return respon;
-        },
         async postEditDetailDoctor(user) {
             const respon = await axios.put('api/update-detail-doctor', { ...user });
             return respon;
