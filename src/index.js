@@ -19,7 +19,7 @@ import IntlProviderWrapper from './hoc/IntlProviderWrapper';
 // Style
 import './style/styles.scss';
 // Sevices
-import appService from './services/appService';
+// import appService from './services/appService';
 
 const renderApp = () => {
     // test cron

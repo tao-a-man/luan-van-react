@@ -93,7 +93,7 @@ class EditDetailDoctor extends Component {
         delete copyState.specialist;
         delete copyState.updatedAt;
 
-        const respon = await appService.postEditDetailDoctor(copyState);
+        const respon = await appService.putEditDetailDoctor(copyState);
         if (respon.errCode === 0) {
             swal({
                 title: 'Edit Doctor Success!',

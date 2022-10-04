@@ -6,7 +6,7 @@ const appService = (function appService(props) {
             const respon = await axios.get('/api/get-specialist');
             return respon;
         },
-        async postEditDetailDoctor(user) {
+        async putEditDetailDoctor(user) {
             const respon = await axios.put('api/update-detail-doctor', { ...user });
             return respon;
         },
@@ -43,6 +43,20 @@ const appService = (function appService(props) {
         },
         async patchBulkUpdateSchedule(data) {
             const respon = await axios.patch('/api/bulk-update-schedule', { ...data });
+            return respon;
+        },
+        async postCreateBooking(infoBooking, token) {
+            const respon = await axios.post(
+                '/api/post-create-booking',
+                {
+                    ...infoBooking,
+                },
+                {
+                    headers: {
+                        authorization: token,
+                    },
+                },
+            );
             return respon;
         },
     };
