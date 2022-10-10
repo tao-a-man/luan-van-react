@@ -9,6 +9,8 @@ import './HomeHeader.scss';
 import { LANGUAGES } from '../../../utils';
 import { withParamsAndNavigate } from '../../../hoc/withParamsAndNavigate';
 import appService from '../../../services/appService';
+import { Container, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav } from 'reactstrap';
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -54,6 +56,30 @@ class HomeHeader extends Component {
                                 Login
                             </Button>
                         ) : (
+                            <Navbar expand="lg" style={{ fontSize: '20px' }}>
+                                <Container>
+                                    <Navbar.Collapse id="basic-navbar-nav">
+                                        <Nav className="me-4">
+                                            <NavDropdown title={this.props.firstName} id="basic-nav-dropdown">
+                                                <NavDropdown.Item>Lịch khám</NavDropdown.Item>
+                                                <NavDropdown.Item>Lịch sử khám</NavDropdown.Item>
+                                                <NavDropdown.Divider />
+                                                <NavDropdown.Item>
+                                                    <span
+                                                        onClick={() => {
+                                                            this.props.userLogoutSuccess();
+                                                        }}
+                                                    >
+                                                        Logout
+                                                    </span>
+                                                </NavDropdown.Item>
+                                            </NavDropdown>
+                                        </Nav>
+                                    </Navbar.Collapse>
+                                </Container>
+                            </Navbar>
+                        )}
+                        {/* <div className="language">
                             <Button
                                 onClick={() => {
                                     this.props.userLogoutSuccess();
@@ -63,8 +89,6 @@ class HomeHeader extends Component {
                             >
                                 Logout
                             </Button>
-                        )}
-                        <div className="language">
                             <span
                                 onClick={() => {
                                     this.handleChangeLanguage(LANGUAGES.VI);
@@ -81,7 +105,7 @@ class HomeHeader extends Component {
                             >
                                 EN
                             </span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -92,6 +116,7 @@ class HomeHeader extends Component {
 const mapStateToProps = (state) => {
     return {
         token: state.token,
+        firstName: state.firstName,
     };
 };
 const mapDispatchToProps = (dispatch) => {

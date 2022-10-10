@@ -56,7 +56,7 @@ class EditDetailDoctor extends Component {
             ...respon.infoDetailDoctor,
             image: respon.infoDetailDoctor.image ? respon.infoDetailDoctor.image : '',
             ...respon.infoDetailDoctor.markdownData,
-            ...respon.infoDetailDoctor.phone,
+            // ...respon.infoDetailDoctor.phone,
         });
     }
 

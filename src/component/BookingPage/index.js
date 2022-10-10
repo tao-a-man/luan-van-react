@@ -26,9 +26,9 @@ class BookingPage extends Component {
             infoPatient: {
                 fullName: '',
                 gender: '',
-                phoneNumber: '',
+                phoneNumberPatient: '',
                 birthDate: '',
-                address: '',
+                addressPatient: '',
                 description: '',
             },
         };
@@ -164,8 +164,8 @@ class BookingPage extends Component {
                             <InputGroup className="mb-2">
                                 <InputGroup.Text>Số điện thoại:</InputGroup.Text>
                                 <Form.Control
-                                    name="phoneNumber"
-                                    value={this.state.infoPatient.phoneNumber}
+                                    name="phoneNumberPatient"
+                                    value={this.state.infoPatient.phoneNumberPatient}
                                     onChange={(e) => this.handleChangeInput(e)}
                                     type="number"
                                     placeholder="Vui lòng điền số điện thoại"
@@ -184,8 +184,8 @@ class BookingPage extends Component {
                             <InputGroup className="mb-2">
                                 <InputGroup.Text>Địa chỉ:</InputGroup.Text>
                                 <Form.Control
-                                    name="address"
-                                    value={this.state.infoPatient.address}
+                                    name="addressPatient"
+                                    value={this.state.infoPatient.addressPatient}
                                     onChange={(e) => this.handleChangeInput(e)}
                                     placeholder="Vui lòng điền địa chỉ"
                                 />
