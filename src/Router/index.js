@@ -12,6 +12,7 @@ import CrudSpecialist from '../component/CrudSpecialist';
 import Schedule from '../component/Schedule';
 import Gdtest from '../component/GDTEST';
 import BookingPage from '../component/BookingPage';
+import SchedulePatient from '../component/SchedulePatient';
 
 class Router extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class Router extends Component {
                     <Route index element={<HomeContent />} />
                     <Route path="/Specialist/:id" element={<Specialist />}></Route>
                     <Route path="/Booking" element={<BookingPage />}></Route>
+                    <Route path="/SchedulePatient" element={<SchedulePatient />}></Route>
                 </Route>
                 <Route path="/Manager" element={<Manager />}>
                     <Route index element={<DeleteEditDoctor />}></Route>

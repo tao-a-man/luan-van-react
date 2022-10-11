@@ -77,6 +77,7 @@ class BookingPage extends Component {
                     title: respon.errMessage,
                     icon: 'success',
                 });
+                this.props.navigate('/SchedulePatient');
             } else {
                 swal({
                     title: 'Error',
@@ -97,7 +98,6 @@ class BookingPage extends Component {
         const dateTime = `${this.state.valueVi}--${dayVi[new Date(this.state.date).getDay()]}--${new Date(
             this.state.date,
         ).toLocaleDateString('vi')}`;
-        console.log(this.state);
         return (
             <>
                 {this.props.token ? '' : <Navigate to="/Login" />}

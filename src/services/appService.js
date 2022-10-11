@@ -59,6 +59,14 @@ const appService = (function appService(props) {
             );
             return respon;
         },
+        async getBookingByUserId(token) {
+            const respon = await axios.get(`api/get-booking-by-user-id`, {
+                headers: {
+                    authorization: token,
+                },
+            });
+            return respon;
+        },
     };
 })();
 

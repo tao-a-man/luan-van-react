@@ -61,7 +61,14 @@ class HomeHeader extends Component {
                                     <Navbar.Collapse id="basic-navbar-nav">
                                         <Nav className="me-4">
                                             <NavDropdown title={this.props.firstName} id="basic-nav-dropdown">
-                                                <NavDropdown.Item>Lịch khám</NavDropdown.Item>
+                                                <NavDropdown.Item
+                                                    to="/SchedulePatient"
+                                                    onClick={() => {
+                                                        this.props.navigate('/SchedulePatient');
+                                                    }}
+                                                >
+                                                    Lịch khám
+                                                </NavDropdown.Item>
                                                 <NavDropdown.Item>Lịch sử khám</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item>

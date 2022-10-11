@@ -31,7 +31,9 @@ class ScheduleItem extends Component {
                             : 'label-check-time'
                     }
                     onClick={(e) => {
-                        e.target.classList.toggle('noactive');
+                        if (!e.target.classList.contains('disiable')) {
+                            e.target.classList.toggle('noactive');
+                        }
                     }}
                 >
                     {time.valueVi}
