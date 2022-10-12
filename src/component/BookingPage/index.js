@@ -65,7 +65,7 @@ class BookingPage extends Component {
             const respon = await appService.postCreateBooking(
                 {
                     doctorId: this.state.doctorId,
-                    status: 'New',
+                    status: 'Đặt thành công',
                     date: dateTime,
                     scheduleId: this.state.id,
                     ...this.state.infoPatient,

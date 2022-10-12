@@ -29,7 +29,7 @@ class Router extends Component {
                     <Route path="/SchedulePatient" element={<SchedulePatient />}></Route>
                 </Route>
                 <Route path="/Manager" element={<Manager />}>
-                    <Route index element={<DeleteEditDoctor />}></Route>
+                    <Route path="/Manager/e" element={<DeleteEditDoctor />}></Route>
                     <Route
                         path="/Manager/EditDetailDoctor/:id/:username/:fullname/:age"
                         element={<EditDetailDoctor />}

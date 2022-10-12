@@ -17,7 +17,10 @@ class SchedulePatient extends Component {
     getData = async () => {
         const booking = await appService.getBookingByUserId(this.props.token);
         this.setState({ bookingData: booking.booking });
-        console.log(booking);
+    };
+    deleteBooking = async (scheduleId) => {
+        await appService.deleteBooking(scheduleId);
+        this.getData();
     };
     render() {
         return (
@@ -32,7 +35,7 @@ class SchedulePatient extends Component {
                         <Col>
                             <Table striped bordered hover className="mt-4 ms-4 me-4">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th width="10%">Giờ khám</th>
                                         <th width="10%">Tên bệnh nhân</th>
                                         <th width="15%">Tên bác sĩ</th>
@@ -56,9 +59,21 @@ class SchedulePatient extends Component {
                                                 <td>{item.managerData.addressClinic}</td>
                                                 <td>{item.managerData.nameClinic}</td>
                                                 <td>{item.managerData.phoneNumber}</td>
-                                                <td>{item.status}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary">
+                                                <td class="text-center">
+                                                    <b>
+                                                        <font size="3" face="arial" color="#008000">
+                                                            {item.status}
+                                                        </font>
+                                                    </b>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button
+                                                        onClick={() => {
+                                                            this.deleteBooking(item.scheduleId);
+                                                        }}
+                                                        type="button"
+                                                        class="btn btn-primary"
+                                                    >
                                                         Hủy Lịch
                                                     </button>
                                                 </td>
