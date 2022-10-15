@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import swal from 'sweetalert';
+import { connect } from 'react-redux';
 
 import { withParamsAndNavigate } from '../../hoc/withParamsAndNavigate';
 import appService from '../../services/appService';
@@ -25,7 +26,7 @@ class Schedule extends Component {
         this.getData();
     }
     getData = async () => {
-        const { id, fullname, username, age } = this.props.params;
+        let { id, fullname, username, age } = this.props.params;
         const schedule = await appService.getScheduleByDoctorId(id);
         const allcode = await appService.getAllcodeByTime();
         this.setState({
@@ -59,7 +60,6 @@ class Schedule extends Component {
                         timeTypeCheck.push(item.timeType);
                     }
                 });
-                console.log('timeReal', timeReal);
                 this.setState({
                     ...this.state,
                     currentDay: e.target.value,
@@ -124,7 +124,6 @@ class Schedule extends Component {
             });
             return newObj;
         });
-        console.log(timeReal, this.state.dayTimeCheck);
         return (
             <div className="row mt-4 ms-2 me-2">
                 <input value={this.state.id} hidden disabled></input>
@@ -144,7 +143,11 @@ class Schedule extends Component {
                     <InputGroup className="mb-3">
                         <InputGroup.Text id="basic-addon1">FullName</InputGroup.Text>
                         <Form.Control
-                            value={this.state.fullname}
+                            value={
+                                this.state.fullname != 'null'
+                                    ? this.state.fullname
+                                    : `${this.props.lastName} ${this.props.firstName}`
+                            }
                             disabled
                             placeholder="Full Name"
                             aria-label="FullName"
@@ -198,8 +201,7 @@ class Schedule extends Component {
                     </InputGroup>
                 </div>
                 <button
-                    className="btn btn-success mt-5"
-                    size="lg"
+                    className="btn btn-success mt-5 btn-lg"
                     onClick={() => {
                         this.bulkUpdateSchedule();
                     }}
@@ -211,4 +213,11 @@ class Schedule extends Component {
     }
 }
 
-export default withParamsAndNavigate(Schedule);
+const mapStateToProps = (state) => {
+    return {
+        firstName: state.firstName,
+        lastName: state.lastName,
+    };
+};
+
+export default connect(mapStateToProps, null)(withParamsAndNavigate(Schedule));

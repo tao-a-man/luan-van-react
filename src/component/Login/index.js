@@ -71,7 +71,15 @@ class Login extends Component {
     render() {
         return (
             <>
-                {this.props.roleId === 'R1' ? <Navigate to="/Manager" /> : this.props.roleId ? <Navigate to="/" /> : ''}
+                {this.props.roleId === 'R1' ? (
+                    <Navigate to="/Manager" />
+                ) : this.props.roleId === 'R2' ? (
+                    <Navigate to="/Doctor" />
+                ) : this.props.roleId ? (
+                    <Navigate to="/" />
+                ) : (
+                    ''
+                )}
                 <ModalCreateUser
                     handleCreateUser={this.handleCreateUser}
                     isShowModal={this.state.isShowModal}

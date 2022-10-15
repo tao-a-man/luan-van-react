@@ -62,7 +62,6 @@ class HomeHeader extends Component {
                                         <Nav className="me-4">
                                             <NavDropdown title={this.props.firstName} id="basic-nav-dropdown">
                                                 <NavDropdown.Item
-                                                    to="/SchedulePatient"
                                                     onClick={() => {
                                                         this.props.navigate('/SchedulePatient');
                                                     }}

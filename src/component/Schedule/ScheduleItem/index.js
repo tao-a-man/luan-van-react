@@ -25,10 +25,10 @@ class ScheduleItem extends Component {
                     for={time.id}
                     className={
                         time.isBooking !== 0
-                            ? 'label-check-time disiable'
+                            ? 'label-check-time disiable me-2 mt-2'
                             : time.isDoing === 0
-                            ? 'label-check-time noactive'
-                            : 'label-check-time'
+                            ? 'label-check-time noactive me-2 mt-2'
+                            : 'label-check-time me-2 mt-2'
                     }
                     onClick={(e) => {
                         if (!e.target.classList.contains('disiable')) {

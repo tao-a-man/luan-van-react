@@ -16,6 +16,8 @@ import Router from './Router';
 // Tranlate
 import IntlProviderWrapper from './hoc/IntlProviderWrapper';
 
+import appService from './services/appService';
+
 // Style
 import './style/styles.scss';
 // Sevices
@@ -25,12 +27,12 @@ const renderApp = () => {
     // test cron
     var CronJob = require('cron').CronJob;
     var job = new CronJob(
-        '0 0 0 * * *',
+        '0 40 18 * * *',
         function () {
-            // appService.runScheduleAutomatic();
+            appService.runScheduleAutomatic();
         },
         null,
-        false,
+        true,
         'Asia/Ho_Chi_Minh',
     );
     const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -10,7 +10,13 @@ class HomePage extends Component {
     render() {
         return (
             <div className="home-page">
-                {this.props.roleId === 'R1' ? <Navigate to="/Manager"></Navigate> : ''}
+                {this.props.roleId === 'R1' ? (
+                    <Navigate to="/Manager" />
+                ) : this.props.roleId === 'R2' ? (
+                    <Navigate to="/Doctor" />
+                ) : (
+                    ''
+                )}
                 <HomeHeader />
                 <Outlet></Outlet>
                 <HomeFooter />

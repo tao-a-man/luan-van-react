@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import { userLogoutSuccess } from '../../store/actions';
-import './Manager.scss';
+import '../../containers/Manager/Manager.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class Manager extends Component {
+class Doctor extends Component {
     handleLoggout = () => {
         this.props.userLogoutSuccess();
     };
@@ -16,7 +16,7 @@ class Manager extends Component {
     render() {
         return (
             <div>
-                {this.props.roleId !== 'R1' ? (
+                {this.props.roleId !== 'R2' ? (
                     <Navigate to="/" />
                 ) : (
                     <>
@@ -35,18 +35,26 @@ class Manager extends Component {
                                     <div className="manager">
                                         <span className="mb-2">QUẢN LÝ</span>
                                         <NavLink
-                                            to="/Manager/CrudDoctor"
-                                            className={({ isActive }) => (isActive ? 'active link' : 'link')}
+                                            key="1"
+                                            to={`/Doctor/Schedule/${this.props.id}/${this.props.email}/${null}/${
+                                                this.props.age
+                                            }`}
+                                            className={({ isActive }) => {
+                                                return isActive ? 'active link' : 'link';
+                                            }}
                                         >
-                                            <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-user-doctor" />
-                                            Manager Doctor
+                                            <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-calendar-days" />
+                                            Manager Schedule
                                         </NavLink>
                                         <NavLink
-                                            to="/Manager/Specialist"
-                                            className={({ isActive }) => (isActive ? 'active link' : 'link')}
+                                            key="2"
+                                            to="/Doctor/Booking"
+                                            className={({ isActive }) => {
+                                                return isActive ? 'active link' : 'link';
+                                            }}
                                         >
-                                            <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-hospital" />
-                                            Manager Specialist
+                                            <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-folder-plus" />
+                                            Manager Booking
                                         </NavLink>
                                         <hr></hr>
                                         <span
@@ -65,7 +73,7 @@ class Manager extends Component {
                                 <Col md={10}>
                                     <div className="header-admin">
                                         <div className="admin-title">
-                                            <span className="mb-2">Admin, {this.props.firstName}!</span>
+                                            <span className="mb-2">Doctor, {this.props.firstName}!</span>
                                         </div>
                                     </div>
                                     <Outlet />
@@ -82,10 +90,14 @@ const mapStateToProps = (state) => {
     return {
         roleId: state.roleId,
         firstName: state.firstName,
+        lastName: state.lastName,
+        age: state.age,
+        email: state.email,
+        id: state.id,
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return { userLogoutSuccess: () => dispatch(userLogoutSuccess()) };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Manager);
+export default connect(mapStateToProps, mapDispatchToProps)(Doctor);

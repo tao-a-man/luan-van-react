@@ -31,11 +31,9 @@ class Gdtest extends Component {
     handleShowEditModal = (user, index) => {
         const newUser = { ...user };
         newUser.id = index;
-        console.log('newUser', newUser);
         this.setState({ isShowEditModal: { type: true, user: newUser } });
     };
     render() {
-        console.log(this.state.users);
         return (
             <>
                 <Button

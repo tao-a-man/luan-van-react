@@ -5,7 +5,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 
-import Button from '../Button';
 import appService from '../../services/appService';
 
 class CrudSpecialist extends Component {
@@ -101,7 +100,6 @@ class CrudSpecialist extends Component {
         }
     };
     handleDeleteSpecialist = async (id) => {
-        console.log(id);
         const respon = await appService.deleteSpecialist(id);
         this.getSpecialist();
         if (respon.errCode === 0) {
@@ -121,17 +119,17 @@ class CrudSpecialist extends Component {
     render() {
         return (
             <div>
-                <Button className="mt-4 ms-4" primary onClick={this.handleOpenModalCreate}>
+                <button className="btn btn-primary mt-2" onClick={this.handleOpenModalCreate}>
                     Create Specialist
-                </Button>
+                </button>
                 <br></br>
-                <Table striped bordered hover className="mt-4 ms-4 me-4">
+                <Table striped bordered hover className="mt-4">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                            <th width="2%">Id</th>
+                            <th width="15%">Name</th>
+                            <th width="63%">Description</th>
+                            <th width="20%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -193,12 +191,12 @@ class CrudSpecialist extends Component {
                         </InputGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button navigate small onClick={this.handleCloseModalCreate}>
+                        <button class="btn btn-secondary" onClick={this.handleCloseModalCreate}>
                             Close
-                        </Button>
-                        <Button primary small onClick={this.handleCreateSpecialist}>
+                        </button>
+                        <button className="btn btn-primary" onClick={this.handleCreateSpecialist}>
                             Create Specialist
-                        </Button>
+                        </button>
                     </Modal.Footer>
                 </Modal>
                 <Modal show={this.state.isShowModalEdit} onHide={this.handleCloseModalEdit}>
@@ -234,12 +232,12 @@ class CrudSpecialist extends Component {
                         </InputGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button navigate small onClick={this.handleCloseModalEdit}>
+                        <button class="btn btn-secondary" onClick={this.handleCloseModalEdit}>
                             Close
-                        </Button>
-                        <Button primary small onClick={this.handleEditSpecialist}>
+                        </button>
+                        <button class="btn btn-primary" onClick={this.handleEditSpecialist}>
                             Edit Specialist
-                        </Button>
+                        </button>
                     </Modal.Footer>
                 </Modal>
             </div>

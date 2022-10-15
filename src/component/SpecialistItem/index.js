@@ -81,21 +81,28 @@ class SpecialistItem extends Component {
             >
                 <Row className="justify-content-md-center">
                     <Col md={1}>
-                        <div
-                            style={{
-                                margin: '2px 2px',
-                                width: '75px',
-                                height: '75px',
-                                borderRadius: '50%',
-                                backgroundImage: `url(${image})`,
-                                backgroundSize: 'contain',
-                            }}
-                        ></div>
+                        <Link to="/DetailDoctor" state={{ data: this.props.doctor }}>
+                            <div
+                                style={{
+                                    margin: '2px 2px',
+                                    width: '75px',
+                                    height: '75px',
+                                    borderRadius: '50%',
+                                    backgroundImage: `url(${image})`,
+                                    backgroundSize: 'contain',
+                                }}
+                            ></div>
+                            <font color="blue" size="2.5">
+                                Xem thêm
+                            </font>
+                        </Link>
                     </Col>
                     <Col md={6}>
-                        <h5 style={{ color: '#0eab42' }}>
-                            {position} {fullname}
-                        </h5>
+                        <Link to="/DetailDoctor" state={{ data: this.props.doctor }}>
+                            <h5 style={{ color: '#0eab42' }}>
+                                {position} {fullname}
+                            </h5>
+                        </Link>
                         <p>{description}</p>
                         <span>
                             <FontAwesomeIcon icon="fa-solid fa-location-dot" /> {regions}

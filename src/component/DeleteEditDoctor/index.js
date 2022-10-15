@@ -4,7 +4,6 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import Button from '../Button';
 import { userLogoutSuccess } from '../../store/actions';
 import userService from '../../services/userService';
 import ModalEditUser from '../ModalEditUser';
@@ -99,9 +98,9 @@ class Manager extends Component {
                         handleEditUser={this.handleEditUser}
                     ></ModalEditUser>
                 )}
-                <Button className="mt-4" onClick={this.handleToggleCreateModal} small primary type="submit">
+                <button className="btn btn-primary mt-2" onClick={this.handleToggleCreateModal}>
                     Create Doctor
-                </Button>
+                </button>
                 <ModalCreateUser
                     toggle={this.handleToggleCreateModal}
                     isShowModal={this.state.isShowCreateModal}
@@ -160,12 +159,12 @@ class Manager extends Component {
                                             Delete
                                         </button>
                                         <Link
-                                            to={`/Manager/EditDetailDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
+                                            to={`/Manager/CrudDoctor/EditDetailDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
                                         >
                                             <button className="btn btn-info me-2">Edit Detail Doctor</button>
                                         </Link>
                                         <Link
-                                            to={`/Manager/ScheduleDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
+                                            to={`/Manager/CrudDoctor/ScheduleDoctor/${user.id}/${user.email}/${user.lastName} ${user.firstName}/${user.age}`}
                                         >
                                             <button className="btn btn-success">Schedule</button>
                                         </Link>
