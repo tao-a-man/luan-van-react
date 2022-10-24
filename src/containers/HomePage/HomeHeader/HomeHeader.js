@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { userLogoutSuccess } from '../../../store/actions';
-import Button from '../../../component/Button';
 import './HomeHeader.scss';
 import { LANGUAGES } from '../../../utils';
 import { withParamsAndNavigate } from '../../../hoc/withParamsAndNavigate';
@@ -35,26 +34,32 @@ class HomeHeader extends Component {
                     <div className="center-content">
                         {this.state.specialist.map((item, index) => {
                             return (
-                                <Link key={index} to={`/Specialist/${item.id}`}>
+                                <NavLink
+                                    key={index}
+                                    to={`/Specialist/${item.id}`}
+                                    className={({ isActive }) => {
+                                        return isActive ? 'active' : '';
+                                    }}
+                                >
                                     <div className="item">
                                         <h6 className="title">{item.name}</h6>
                                         <p className="description">Khám {item.name}</p>
                                     </div>
-                                </Link>
+                                </NavLink>
                             );
                         })}
                     </div>
                     <div className="right-content">
                         {this.props.token === null ? (
-                            <Button
+                            <button
+                                className="btn btn-success btn-lg"
                                 onClick={() => {
                                     this.props.navigate('/Login');
                                 }}
-                                primary
-                                iconLeft={<FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />}
                             >
+                                <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" className="me-2" />
                                 Login
-                            </Button>
+                            </button>
                         ) : (
                             <Navbar expand="lg" style={{ fontSize: '20px' }}>
                                 <Container>

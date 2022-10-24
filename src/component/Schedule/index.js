@@ -124,6 +124,7 @@ class Schedule extends Component {
             });
             return newObj;
         });
+        console.log(this.state.dayTimeCheck);
         return (
             <div className="row mt-4 ms-2 me-2">
                 <input value={this.state.id} hidden disabled></input>
@@ -189,9 +190,10 @@ class Schedule extends Component {
                 </div>
                 <div className="form-group col-12 mt-5">
                     <InputGroup className="mb-3">
-                        {timeReal.map((time) => {
+                        {timeReal.map((time, index) => {
                             return (
                                 <ScheduleItem
+                                    key={index}
                                     day={this.state.currentDay}
                                     item={time}
                                     handleChangeInput={(e) => this.handleChangeInput(e)}

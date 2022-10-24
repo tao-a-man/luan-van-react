@@ -8,14 +8,27 @@ class ScheduleItem extends Component {
         super(props);
     }
     state = {};
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.day !== nextProps.day) {
-    //         this.textInput.classList.remove('noactive');
-    //     }
-    //     return true;
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.day !== nextProps.day) {
+            if (nextProps.item.isDoing === 1) {
+                this.textInput.classList = '';
+                this.textInput.classList.add('label-check-time');
+                this.textInput.classList.add('me-2');
+                this.textInput.classList.add('mt-2');
+            }
+            if (nextProps.item.isDoing === 0) {
+                this.textInput.classList = '';
+                this.textInput.classList.add('label-check-time');
+                this.textInput.classList.add('noactive');
+                this.textInput.classList.add('me-2');
+                this.textInput.classList.add('mt-2');
+            }
+        }
+        return true;
+    }
     render() {
         const time = this.props.item;
+        console.log(time);
         return (
             <>
                 <label
@@ -32,6 +45,12 @@ class ScheduleItem extends Component {
                     }
                     onClick={(e) => {
                         if (!e.target.classList.contains('disiable')) {
+                            if (this.props.re) {
+                                var list = document.getElementsByClassName('label-check-time');
+                                for (let item of list) {
+                                    item.classList.remove('noactive');
+                                }
+                            }
                             e.target.classList.toggle('noactive');
                         }
                     }}

@@ -67,6 +67,10 @@ const appService = (function appService(props) {
             });
             return respon;
         },
+        async acceptBooking(id) {
+            const respon = await axios.put('/api/accept-booking', { id });
+            return respon;
+        },
         async deleteBooking(scheduleId) {
             await axios.delete(`api/delete-booking`, { data: { scheduleId } });
         },

@@ -27,7 +27,7 @@ const renderApp = () => {
     // test cron
     var CronJob = require('cron').CronJob;
     var job = new CronJob(
-        '0 40 18 * * *',
+        '0 16 11 * * *',
         function () {
             appService.runScheduleAutomatic();
         },

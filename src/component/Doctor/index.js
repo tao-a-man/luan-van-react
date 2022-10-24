@@ -35,7 +35,6 @@ class Doctor extends Component {
                                     <div className="manager">
                                         <span className="mb-2">QUẢN LÝ</span>
                                         <NavLink
-                                            key="1"
                                             to={`/Doctor/Schedule/${this.props.id}/${this.props.email}/${null}/${
                                                 this.props.age
                                             }`}
@@ -47,7 +46,6 @@ class Doctor extends Component {
                                             Manager Schedule
                                         </NavLink>
                                         <NavLink
-                                            key="2"
                                             to="/Doctor/Booking"
                                             className={({ isActive }) => {
                                                 return isActive ? 'active link' : 'link';

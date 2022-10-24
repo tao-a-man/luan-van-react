@@ -4,11 +4,14 @@ import Table from 'react-bootstrap/Table';
 import appService from '../../services/appService';
 import { connect } from 'react-redux';
 
-class SchedulePatient extends Component {
+import ModalCare from '../ModalCare';
+
+class ScheduleDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             bookingData: [],
+            isShowModalCare: false,
         };
     }
     componentDidMount() {
@@ -22,6 +25,11 @@ class SchedulePatient extends Component {
         await appService.deleteBooking(scheduleId);
         this.getData();
     };
+    acceptBooking = async (id) => {
+        await appService.acceptBooking(id);
+        this.getData();
+    };
+    care = async (id) => {};
     render() {
         return (
             <div style={{ marginTop: '70px', backgroundColor: 'rgba(255,255,255,0.9)' }}>
@@ -53,10 +61,10 @@ class SchedulePatient extends Component {
                                                 <th width="10%">Tên bệnh nhân</th>
                                                 <th width="5%">Tuổi</th>
                                                 <th width="5%">Giới tính</th>
-                                                <th width="30%">Địa chỉ</th>
+                                                <th width="20%">Địa chỉ</th>
                                                 <th width="10%">Số điện thoại</th>
                                                 <th width="10%">Trạng thái</th>
-                                                <th width="10%">Action</th>
+                                                <th width="20%">Action</th>
                                             </>
                                         )}
                                     </tr>
@@ -90,7 +98,7 @@ class SchedulePatient extends Component {
                                                                     this.deleteBooking(item.scheduleId);
                                                                 }}
                                                                 type="button"
-                                                                class="btn btn-primary"
+                                                                class="btn btn-danger"
                                                             >
                                                                 Hủy Lịch
                                                             </button>
@@ -112,27 +120,48 @@ class SchedulePatient extends Component {
                                                             </b>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button
-                                                                onClick={() => {
-                                                                    this.deleteBooking(item.scheduleId);
-                                                                }}
-                                                                type="button"
-                                                                class="btn btn-primary"
-                                                            >
-                                                                Hủy Lịch
-                                                            </button>
-                                                            <button
-                                                                onClick={() => {
-                                                                    this.deleteBooking(item.scheduleId);
-                                                                }}
-                                                                type="button"
-                                                                class="btn btn-primary"
-                                                            >
-                                                                Hủy Lịch
-                                                            </button>
+                                                            {item.status != 'Đã xác nhận' ? (
+                                                                <>
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            this.deleteBooking(item.scheduleId);
+                                                                        }}
+                                                                        type="button"
+                                                                        class="btn btn-danger"
+                                                                    >
+                                                                        Hủy Lịch
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            this.acceptBooking(item.id);
+                                                                            console.log(item.id);
+                                                                        }}
+                                                                        type="button"
+                                                                        class="btn btn-primary"
+                                                                    >
+                                                                        Xác nhận
+                                                                    </button>
+                                                                </>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        this.setState({ isShowModalCare: true });
+                                                                    }}
+                                                                    type="button"
+                                                                    class="btn btn-primary"
+                                                                >
+                                                                    Khám bệnh
+                                                                </button>
+                                                            )}
                                                         </td>
                                                     </>
                                                 )}
+                                                <ModalCare
+                                                    show={this.state.isShowModalCare}
+                                                    onHide={() => {
+                                                        this.setState({ isShowModalCare: false });
+                                                    }}
+                                                ></ModalCare>
                                             </tr>
                                         );
                                     })}
@@ -152,4 +181,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(SchedulePatient);
+export default connect(mapStateToProps, null)(ScheduleDoctor);
