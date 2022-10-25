@@ -74,6 +74,17 @@ const appService = (function appService(props) {
         async deleteBooking(scheduleId) {
             await axios.delete(`api/delete-booking`, { data: { scheduleId } });
         },
+        async postCreateHistoryCare(dataExam, token) {
+            await axios.post(
+                `/api/post-create-historycare`,
+                { ...dataExam },
+                {
+                    headers: {
+                        authorization: token,
+                    },
+                },
+            );
+        },
     };
 })();
 

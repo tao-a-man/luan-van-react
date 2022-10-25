@@ -16,6 +16,7 @@ import ScheduleDoctor from '../component/ScheduleDoctor';
 import CrudDoctor from '../component/CrudDoctor';
 import DetailDoctor from '../component/DetailDoctor';
 import Doctor from '../component/Doctor';
+import SpecialistIndex from '../component/SpecialistIndex';
 
 class Router extends Component {
     constructor(props) {
@@ -27,10 +28,12 @@ class Router extends Component {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomeContent />} />
-                    <Route path="/Specialist/:id" element={<Specialist />}></Route>
+                    <Route path="/Specialist/:id" element={<SpecialistIndex />}>
+                        <Route index element={<Specialist />} />
+                        <Route path="/Specialist/:id/DetailDoctor" element={<DetailDoctor />}></Route>
+                    </Route>
                     <Route path="/Booking" element={<BookingPage />}></Route>
                     <Route path="/SchedulePatient" element={<ScheduleDoctor />}></Route>
-                    <Route path="/DetailDoctor" element={<DetailDoctor />}></Route>
                 </Route>
                 <Route path="/Manager" element={<Manager />}>
                     <Route path="/Manager/CrudDoctor" element={<CrudDoctor />}>

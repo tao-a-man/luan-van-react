@@ -120,7 +120,8 @@ class ScheduleDoctor extends Component {
                                                             </b>
                                                         </td>
                                                         <td class="text-center">
-                                                            {item.status != 'Đã xác nhận' ? (
+                                                            {item.status != 'Đã xác nhận' &&
+                                                            item.status != 'Đã khám' ? (
                                                                 <>
                                                                     <button
                                                                         onClick={() => {
@@ -134,7 +135,6 @@ class ScheduleDoctor extends Component {
                                                                     <button
                                                                         onClick={() => {
                                                                             this.acceptBooking(item.id);
-                                                                            console.log(item.id);
                                                                         }}
                                                                         type="button"
                                                                         class="btn btn-primary"
@@ -142,7 +142,7 @@ class ScheduleDoctor extends Component {
                                                                         Xác nhận
                                                                     </button>
                                                                 </>
-                                                            ) : (
+                                                            ) : item.status != 'Đã khám' ? (
                                                                 <button
                                                                     onClick={() => {
                                                                         this.setState({ isShowModalCare: true });
@@ -151,6 +151,16 @@ class ScheduleDoctor extends Component {
                                                                     class="btn btn-primary"
                                                                 >
                                                                     Khám bệnh
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        this.setState({ isShowModalCare: true });
+                                                                    }}
+                                                                    type="button"
+                                                                    class="btn btn-primary"
+                                                                >
+                                                                    Xem lịch sử khám
                                                                 </button>
                                                             )}
                                                         </td>
@@ -161,6 +171,7 @@ class ScheduleDoctor extends Component {
                                                     onHide={() => {
                                                         this.setState({ isShowModalCare: false });
                                                     }}
+                                                    bookingId={item.id}
                                                 ></ModalCare>
                                             </tr>
                                         );

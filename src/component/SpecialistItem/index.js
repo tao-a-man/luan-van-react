@@ -81,7 +81,7 @@ class SpecialistItem extends Component {
             >
                 <Row className="justify-content-md-center">
                     <Col md={1}>
-                        <Link to="/DetailDoctor" state={{ data: this.props.doctor }}>
+                        <Link to={`/Specialist/${this.props.id}/DetailDoctor`} state={{ data: this.props.doctor }}>
                             <div
                                 style={{
                                     margin: '2px 2px',
@@ -98,7 +98,7 @@ class SpecialistItem extends Component {
                         </Link>
                     </Col>
                     <Col md={6}>
-                        <Link to="/DetailDoctor" state={{ data: this.props.doctor }}>
+                        <Link to={`/Specialist/${this.props.id}/DetailDoctor`} state={{ data: this.props.doctor }}>
                             <h5 style={{ color: '#0eab42' }}>
                                 {position} {fullname}
                             </h5>

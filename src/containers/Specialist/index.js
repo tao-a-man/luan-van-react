@@ -38,6 +38,7 @@ class Specialist extends Component {
         const name = listDoctor[0] ? listDoctor[0].managerData.specialistData.name : '';
         const description = listDoctor[0] ? listDoctor[0].managerData.specialistData.description : '';
         const infoSpecialist = `<div><strong>Chuyên Khoa ${name} chuyên tư vấn hỗ trợ điều trị các bệnh lý và triệu chứng:</strong><p>${description}...</p></div>`;
+
         return (
             <>
                 <div className="content pt-4">
@@ -52,7 +53,7 @@ class Specialist extends Component {
                         </Row>
                     </Container>
                     {listDoctor.map((item, index) => {
-                        return <SpecialistItem key={index} doctor={item}></SpecialistItem>;
+                        return <SpecialistItem id={this.props.params.id} key={index} doctor={item}></SpecialistItem>;
                     })}
                 </div>
             </>

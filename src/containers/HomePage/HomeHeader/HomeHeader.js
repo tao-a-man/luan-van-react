@@ -78,6 +78,7 @@ class HomeHeader extends Component {
                                                 <NavDropdown.Item>
                                                     <span
                                                         onClick={() => {
+                                                            this.props.navigate('/');
                                                             this.props.userLogoutSuccess();
                                                         }}
                                                     >

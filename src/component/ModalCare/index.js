@@ -17,10 +17,17 @@ class ModalCare extends Component {
             time: [],
             currentDay: '',
             dayTimeCheck: [],
+            description: '',
         };
     }
     componentDidMount() {
         this.getData();
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.show !== this.props.show) {
+            nextState.re = false;
+        }
+        return true;
     }
     getData = async () => {
         const date = await appService.getScheduleByDoctorId(this.props.doctorId);
@@ -64,30 +71,37 @@ class ModalCare extends Component {
                     dayTimeCheck: [],
                 });
             } else {
-                this.setState({
-                    ...this.state,
-                    [e.target.name]: e.target.value,
-                });
+                if (e.target.name === 're') {
+                    this.setState({
+                        re: !this.state.re,
+                        dayTimeCheck: [],
+                        currentDay: '',
+                    });
+                } else {
+                    this.setState({
+                        ...this.state,
+                        [e.target.name]: e.target.value,
+                    });
+                }
             }
         } else {
-            // let checkValue = this.state.dayTimeCheck;
-            // if (e.target.checked) {
-            //     let ischecked = false;
-            //     checkValue = checkValue.filter((item) => {
-            //         if (e.target.value === item) {
-            //             ischecked = true;
-            //         }
-            //         return item !== e.target.value;
-            //     });
-            //     if (!ischecked) {
-            //         checkValue.push(e.target.value);
-            //     }
-            // }
             this.setState({
                 ...this.state,
                 dayTimeCheck: e.target.value,
             });
         }
+    };
+    handleExam = async () => {
+        await appService.postCreateHistoryCare(
+            {
+                date: this.state.currentDay,
+                time: this.state.dayTimeCheck,
+                bookingId: this.props.bookingId,
+                description: this.state.description,
+            },
+            this.props.token,
+        );
+        this.props.onHide();
     };
     render() {
         const dayVi = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
@@ -104,7 +118,7 @@ class ModalCare extends Component {
             });
             return newObj;
         });
-        console.log(this.state.dayTimeCheck);
+        console.log(this.state);
         return (
             <Modal {...this.props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
@@ -113,7 +127,14 @@ class ModalCare extends Component {
                 <Modal.Body>
                     <InputGroup>
                         <InputGroup.Text>Tình trạng bệnh</InputGroup.Text>
-                        <Form.Control as="textarea" aria-label="With textarea" />
+                        <Form.Control
+                            as="textarea"
+                            aria-label="With textarea"
+                            name="description"
+                            onChange={(e) => {
+                                this.handleChangeInput(e);
+                            }}
+                        />
                     </InputGroup>
                     <Form.Check
                         id="re"
@@ -125,40 +146,48 @@ class ModalCare extends Component {
                             this.handleChangeInput(e);
                         }}
                     ></Form.Check>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Text id="basic-addon1">Choice day for edit</InputGroup.Text>
-                        <Form.Select
-                            aria-label="Default select example"
-                            name="currentDay"
-                            onChange={(e) => this.handleChangeInput(e)}
-                        >
-                            <option hidden>Choice Day</option>
-                            {this.state.date.map((day) => {
-                                const dayFormat = new Date(day).toLocaleDateString('vi-VN', {
-                                    timeZone: 'Asia/Ho_Chi_Minh',
-                                });
-                                const date = new Date(day).getDay();
-                                return <option value={day}>{`${dayVi[date]}--${dayFormat}`}</option>;
-                            })}
-                        </Form.Select>
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        {timeReal.map((time) => {
-                            if (time.isDoing == 1 && time.isBooking == 0) {
-                                return (
-                                    <ScheduleItem
-                                        day={this.state.currentDay}
-                                        item={time}
-                                        handleChangeInput={(e) => this.handleChangeInput(e)}
-                                        re
-                                    ></ScheduleItem>
-                                );
-                            }
-                        })}
-                    </InputGroup>
+                    {this.state.re ? (
+                        <>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text id="basic-addon1">Choice day for edit</InputGroup.Text>
+                                <Form.Select
+                                    aria-label="Default select example"
+                                    name="currentDay"
+                                    onChange={(e) => this.handleChangeInput(e)}
+                                >
+                                    <option hidden>Choice Day</option>
+                                    {this.state.date.map((day) => {
+                                        const dayFormat = new Date(day).toLocaleDateString('vi-VN', {
+                                            timeZone: 'Asia/Ho_Chi_Minh',
+                                        });
+                                        const date = new Date(day).getDay();
+                                        return <option value={day}>{`${dayVi[date]}--${dayFormat}`}</option>;
+                                    })}
+                                </Form.Select>
+                            </InputGroup>
+                            <InputGroup className="mb-3">
+                                {timeReal.map((time) => {
+                                    if (time.isDoing == 1 && time.isBooking == 0) {
+                                        return (
+                                            <ScheduleItem
+                                                day={this.state.currentDay}
+                                                item={time}
+                                                handleChangeInput={(e) => this.handleChangeInput(e)}
+                                                re
+                                            ></ScheduleItem>
+                                        );
+                                    }
+                                })}
+                            </InputGroup>
+                        </>
+                    ) : (
+                        ''
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary">Hoàn thành</Button>
+                    <Button variant="primary" onClick={this.handleExam}>
+                        Hoàn thành
+                    </Button>
                     <Button variant="danger" onClick={this.props.onHide}>
                         Close
                     </Button>
@@ -170,6 +199,7 @@ class ModalCare extends Component {
 const mapStateToProps = (state) => {
     return {
         doctorId: state.id,
+        token: state.token,
     };
 };
 
