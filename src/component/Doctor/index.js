@@ -54,6 +54,18 @@ class Doctor extends Component {
                                             <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-folder-plus" />
                                             Manager Booking
                                         </NavLink>
+                                        <NavLink
+                                            to="/Doctor/Histories"
+                                            className={({ isActive }) => {
+                                                return isActive ? 'active link' : 'link';
+                                            }}
+                                        >
+                                            <FontAwesomeIcon
+                                                className="me-1 w-25"
+                                                icon="fa-solid fa-clock-rotate-left"
+                                            />
+                                            Manager Histories
+                                        </NavLink>
                                         <hr></hr>
                                         <span
                                             style={{ cursor: 'pointer' }}

@@ -101,6 +101,7 @@ class ModalCare extends Component {
             },
             this.props.token,
         );
+        this.getData();
         this.props.onHide();
     };
     render() {

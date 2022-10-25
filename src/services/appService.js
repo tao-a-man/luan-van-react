@@ -85,6 +85,14 @@ const appService = (function appService(props) {
                 },
             );
         },
+        async getHistoryCare(token) {
+            const respon = await axios.get('/api/get-historycare-by-doctor-id', {
+                headers: {
+                    authorization: token,
+                },
+            });
+            return respon;
+        },
     };
 })();
 

@@ -12,11 +12,12 @@ import CrudSpecialist from '../component/CrudSpecialist';
 import Schedule from '../component/Schedule';
 import Gdtest from '../component/GDTEST';
 import BookingPage from '../component/BookingPage';
-import ScheduleDoctor from '../component/ScheduleDoctor';
+import ScheduleBooking from '../component/ScheduleBooking';
 import CrudDoctor from '../component/CrudDoctor';
 import DetailDoctor from '../component/DetailDoctor';
 import Doctor from '../component/Doctor';
 import SpecialistIndex from '../component/SpecialistIndex';
+import ScheduleHistories from '../component/ScheduleHistories';
 
 class Router extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Router extends Component {
                         <Route path="/Specialist/:id/DetailDoctor" element={<DetailDoctor />}></Route>
                     </Route>
                     <Route path="/Booking" element={<BookingPage />}></Route>
-                    <Route path="/SchedulePatient" element={<ScheduleDoctor />}></Route>
+                    <Route path="/SchedulePatient" element={<ScheduleBooking />}></Route>
                 </Route>
                 <Route path="/Manager" element={<Manager />}>
                     <Route path="/Manager/CrudDoctor" element={<CrudDoctor />}>
@@ -51,7 +52,8 @@ class Router extends Component {
                 </Route>
                 <Route path="/Doctor" element={<Doctor />}>
                     <Route path="/Doctor/Schedule/:id/:username/:fullname/:age" element={<Schedule />} />
-                    <Route path="/Doctor/Booking" element={<ScheduleDoctor />} />
+                    <Route path="/Doctor/Booking" element={<ScheduleBooking />} />
+                    <Route path="/Doctor/Histories" element={<ScheduleHistories />} />
                 </Route>
                 <Route path="/Login" element={<Login />}></Route>
                 <Route path="/DGTest" element={<Gdtest />}></Route>

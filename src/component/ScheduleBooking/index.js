@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import ModalCare from '../ModalCare';
 
-class ScheduleDoctor extends Component {
+class ScheduleBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -192,4 +192,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(ScheduleDoctor);
+export default connect(mapStateToProps, null)(ScheduleBooking);
