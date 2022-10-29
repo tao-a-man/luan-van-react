@@ -102,6 +102,7 @@ class ModalCare extends Component {
             this.props.token,
         );
         this.getData();
+        this.props.getDataFromParent();
         this.props.onHide();
     };
     render() {
@@ -119,7 +120,6 @@ class ModalCare extends Component {
             });
             return newObj;
         });
-        console.log(this.state);
         return (
             <Modal {...this.props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>

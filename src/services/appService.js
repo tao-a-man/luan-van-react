@@ -93,6 +93,22 @@ const appService = (function appService(props) {
             });
             return respon;
         },
+        async getHistoryCareByBookingId(token, bookingId) {
+            const respon = await axios.get(`/api/get-historycare-by-booking-id?bookingId=${bookingId}`, {
+                headers: {
+                    authorization: token,
+                },
+            });
+            return respon;
+        },
+        async getHistoryCareHaveReExam(token) {
+            const respon = await axios.get(`/api/get-historycare-have-re-exam`, {
+                headers: {
+                    authorization: token,
+                },
+            });
+            return respon;
+        },
     };
 })();
 

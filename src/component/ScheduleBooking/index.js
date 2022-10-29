@@ -93,15 +93,19 @@ class ScheduleBooking extends Component {
                                                             </b>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button
-                                                                onClick={() => {
-                                                                    this.deleteBooking(item.scheduleId);
-                                                                }}
-                                                                type="button"
-                                                                class="btn btn-danger"
-                                                            >
-                                                                Hủy Lịch
-                                                            </button>
+                                                            {item.status == 'Đã khám' ? (
+                                                                ''
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        this.deleteBooking(item.scheduleId);
+                                                                    }}
+                                                                    type="button"
+                                                                    class="btn btn-danger"
+                                                                >
+                                                                    Hủy Lịch
+                                                                </button>
+                                                            )}
                                                         </td>
                                                     </>
                                                 ) : (
@@ -143,15 +147,25 @@ class ScheduleBooking extends Component {
                                                                     </button>
                                                                 </>
                                                             ) : item.status != 'Đã khám' ? (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        this.setState({ isShowModalCare: true });
-                                                                    }}
-                                                                    type="button"
-                                                                    class="btn btn-primary"
-                                                                >
-                                                                    Khám bệnh
-                                                                </button>
+                                                                <>
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            this.setState({ isShowModalCare: true });
+                                                                        }}
+                                                                        type="button"
+                                                                        class="btn btn-primary"
+                                                                    >
+                                                                        Khám bệnh
+                                                                    </button>
+                                                                    <ModalCare
+                                                                        show={this.state.isShowModalCare}
+                                                                        onHide={() => {
+                                                                            this.setState({ isShowModalCare: false });
+                                                                        }}
+                                                                        bookingId={item.id}
+                                                                        getDataFromParent={this.getData}
+                                                                    ></ModalCare>
+                                                                </>
                                                             ) : (
                                                                 <button
                                                                     onClick={() => {
@@ -166,13 +180,6 @@ class ScheduleBooking extends Component {
                                                         </td>
                                                     </>
                                                 )}
-                                                <ModalCare
-                                                    show={this.state.isShowModalCare}
-                                                    onHide={() => {
-                                                        this.setState({ isShowModalCare: false });
-                                                    }}
-                                                    bookingId={item.id}
-                                                ></ModalCare>
                                             </tr>
                                         );
                                     })}

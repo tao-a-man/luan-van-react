@@ -124,7 +124,6 @@ class Schedule extends Component {
             });
             return newObj;
         });
-        console.log(this.state.dayTimeCheck);
         return (
             <div className="row mt-4 ms-2 me-2">
                 <input value={this.state.id} hidden disabled></input>

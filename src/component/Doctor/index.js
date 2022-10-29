@@ -43,7 +43,7 @@ class Doctor extends Component {
                                             }}
                                         >
                                             <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-calendar-days" />
-                                            Manager Schedule
+                                            Lịch khám
                                         </NavLink>
                                         <NavLink
                                             to="/Doctor/Booking"
@@ -52,7 +52,19 @@ class Doctor extends Component {
                                             }}
                                         >
                                             <FontAwesomeIcon className="me-1 w-25" icon="fa-solid fa-folder-plus" />
-                                            Manager Booking
+                                            Khám bệnh
+                                        </NavLink>
+                                        <NavLink
+                                            to="/Doctor/ReExam"
+                                            className={({ isActive }) => {
+                                                return isActive ? 'active link' : 'link';
+                                            }}
+                                        >
+                                            <FontAwesomeIcon
+                                                className="me-1 w-25"
+                                                icon="fa-solid fa-person-walking-arrow-loop-left"
+                                            />
+                                            Tái khám
                                         </NavLink>
                                         <NavLink
                                             to="/Doctor/Histories"
@@ -64,7 +76,7 @@ class Doctor extends Component {
                                                 className="me-1 w-25"
                                                 icon="fa-solid fa-clock-rotate-left"
                                             />
-                                            Manager Histories
+                                            Lịch sử khám
                                         </NavLink>
                                         <hr></hr>
                                         <span

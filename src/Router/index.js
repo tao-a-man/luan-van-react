@@ -18,6 +18,7 @@ import DetailDoctor from '../component/DetailDoctor';
 import Doctor from '../component/Doctor';
 import SpecialistIndex from '../component/SpecialistIndex';
 import ScheduleHistories from '../component/ScheduleHistories';
+import ReExam from '../component/ReExam';
 
 class Router extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ class Router extends Component {
                     <Route path="/Doctor/Schedule/:id/:username/:fullname/:age" element={<Schedule />} />
                     <Route path="/Doctor/Booking" element={<ScheduleBooking />} />
                     <Route path="/Doctor/Histories" element={<ScheduleHistories />} />
+                    <Route path="/Doctor/ReExam" element={<ReExam />} />
                 </Route>
                 <Route path="/Login" element={<Login />}></Route>
                 <Route path="/DGTest" element={<Gdtest />}></Route>

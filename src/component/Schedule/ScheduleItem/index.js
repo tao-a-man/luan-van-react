@@ -28,7 +28,6 @@ class ScheduleItem extends Component {
     }
     render() {
         const time = this.props.item;
-        console.log(time);
         return (
             <>
                 <label
