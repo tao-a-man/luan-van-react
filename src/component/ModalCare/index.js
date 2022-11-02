@@ -98,6 +98,7 @@ class ModalCare extends Component {
                 time: this.state.dayTimeCheck,
                 bookingId: this.props.bookingId,
                 description: this.state.description,
+                re: this.props.reDB,
             },
             this.props.token,
         );
@@ -106,6 +107,7 @@ class ModalCare extends Component {
         this.props.onHide();
     };
     render() {
+        console.log(this.props.bookingId);
         const dayVi = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
         const dataDay = this.state.schedule.filter((day) => {
             return day.date == this.state.currentDay;
@@ -120,14 +122,25 @@ class ModalCare extends Component {
             });
             return newObj;
         });
+        console.log(this.props.reDB);
         return (
             <Modal {...this.props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">Khám bệnh</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.props.reDB?.map((item, index) => {
+                        return (
+                            <div>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Text id="basic-addon1">Khám lần {index + 1}</InputGroup.Text>
+                                    <Form.Control aria-describedby="basic-addon1" disabled value={item.description} />
+                                </InputGroup>
+                            </div>
+                        );
+                    })}
                     <InputGroup>
-                        <InputGroup.Text>Tình trạng bệnh</InputGroup.Text>
+                        <InputGroup.Text>Tình trạng bệnh hiện tại</InputGroup.Text>
                         <Form.Control
                             as="textarea"
                             aria-label="With textarea"
@@ -150,13 +163,13 @@ class ModalCare extends Component {
                     {this.state.re ? (
                         <>
                             <InputGroup className="mb-3">
-                                <InputGroup.Text id="basic-addon1">Choice day for edit</InputGroup.Text>
+                                <InputGroup.Text id="basic-addon1">Chọn ngày tái khám</InputGroup.Text>
                                 <Form.Select
                                     aria-label="Default select example"
                                     name="currentDay"
                                     onChange={(e) => this.handleChangeInput(e)}
                                 >
-                                    <option hidden>Choice Day</option>
+                                    <option hidden>Chọn ngày</option>
                                     {this.state.date.map((day) => {
                                         const dayFormat = new Date(day).toLocaleDateString('vi-VN', {
                                             timeZone: 'Asia/Ho_Chi_Minh',

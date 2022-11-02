@@ -14,11 +14,11 @@ class Specialist extends Component {
     componentDidMount() {
         this.getDoctor(this.props.params.id);
     }
-    shouldComponentUpdate = async (nextProps, nextState) => {
+    shouldComponentUpdate = (nextProps, nextState) => {
         if (nextProps.params.id !== this.props.params.id) {
-            await this.getDoctor(nextProps.params.id);
+            this.getDoctor(nextProps.params.id);
 
-            return true;
+            return false;
         } else if (nextState.listDoctor !== this.state.listDoctor) {
             return true;
         }

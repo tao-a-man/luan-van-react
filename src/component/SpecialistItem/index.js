@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Container, Col } from 'react-bootstrap';
+import { Row, Container, Col, ThemeProvider } from 'react-bootstrap';
 import { Form, InputGroup } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import appService from '../../services/appService';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 class SpecialistItem extends Component {
     constructor(props) {
@@ -17,12 +17,25 @@ class SpecialistItem extends Component {
             allcode: [],
         };
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.id !== this.props.id) {
+            this.select.value = 'Chọn ngày';
+            this.schedule.hidden = 'a';
+            this.getData(nextProps.doctor.id);
+        }
+        return true;
+    }
     componentDidMount() {
         this.getData();
     }
 
-    getData = async () => {
-        const respon = await appService.getScheduleByDoctorId(this.props.doctor.id);
+    getData = async (id) => {
+        if (id) {
+            var respon = await appService.getScheduleByDoctorId(id);
+        } else {
+            var respon = await appService.getScheduleByDoctorId(this.props.doctor.id);
+        }
+
         const allcode = await appService.getAllcodeByTime();
         const schedule = respon.schedule;
         const date = schedule.map((item) => {
@@ -39,6 +52,7 @@ class SpecialistItem extends Component {
     };
     handleChangeInput = (e) => {
         if (e.target.name === 'currentDay') {
+            this.schedule.hidden = '';
             const dataDay = this.state.listSchedule.filter((day) => {
                 return day.date == e.target.value;
             });
@@ -115,6 +129,9 @@ class SpecialistItem extends Component {
                                     <Form.Select
                                         aria-label="Default select example"
                                         name="currentDay"
+                                        ref={(input) => {
+                                            this.select = input;
+                                        }}
                                         onChange={(e) => this.handleChangeInput(e)}
                                     >
                                         <option hidden>Chọn ngày</option>
@@ -139,19 +156,27 @@ class SpecialistItem extends Component {
                             <FontAwesomeIcon icon="fa-solid fa-calendar-days" className="me-1 ms-1" />
                             <b>Lịch khám</b>
                         </div>
-                        {this.state.schedule.map((item, index) => {
-                            return (
-                                <Link
-                                    key={index}
-                                    to={`/Booking`}
-                                    state={{ data: { ...item, image, fullname, position, price, addressClinic } }}
-                                >
-                                    <button type="button" className="btn btn-outline-primary mt-2 me-2">
-                                        {item.valueVi}
-                                    </button>
-                                </Link>
-                            );
-                        })}
+                        <div
+                            ref={(input) => {
+                                this.schedule = input;
+                            }}
+                        >
+                            {this.state.schedule.map((item, index) => {
+                                return (
+                                    <NavLink
+                                        key={index}
+                                        to={`/Booking`}
+                                        state={{
+                                            data: { ...item, image, fullname, position, price, addressClinic },
+                                        }}
+                                    >
+                                        <button type="button" className="btn btn-outline-primary mt-2 me-2">
+                                            {item.valueVi}
+                                        </button>
+                                    </NavLink>
+                                );
+                            })}
+                        </div>
                         <div className="mt-2">
                             <b>
                                 Chọn <FontAwesomeIcon icon="fa-regular fa-hand-pointer" /> và đặt lịch miễn phí

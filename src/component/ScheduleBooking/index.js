@@ -33,13 +33,13 @@ class ScheduleBooking extends Component {
     render() {
         return (
             <div style={{ marginTop: '70px', backgroundColor: 'rgba(255,255,255,0.9)' }}>
-                <Container fluid="xl">
+                <Container fluid>
                     <Row className="justify-content-md-center">
                         <Col className="title mt-2">
                             <h4 style={{ color: '#555' }}>Thông tin lịch khám</h4>
                         </Col>
                     </Row>
-                    <Row className="justify-content-md-center" style={{ fontSize: '13px' }}>
+                    <Row className="justify-content-md-center" style={{ fontSize: '18px' }}>
                         <Col>
                             <Table striped bordered hover className="mt-4 me-4">
                                 <thead>
@@ -61,10 +61,11 @@ class ScheduleBooking extends Component {
                                                 <th width="10%">Tên bệnh nhân</th>
                                                 <th width="5%">Tuổi</th>
                                                 <th width="5%">Giới tính</th>
+                                                <th width="10%">Triệu chứng</th>
                                                 <th width="20%">Địa chỉ</th>
                                                 <th width="10%">Số điện thoại</th>
-                                                <th width="10%">Trạng thái</th>
-                                                <th width="20%">Action</th>
+                                                <th width="5%">Trạng thái</th>
+                                                <th width="15%">Action</th>
                                             </>
                                         )}
                                     </tr>
@@ -73,7 +74,7 @@ class ScheduleBooking extends Component {
                                     {this.state.bookingData.map((item) => {
                                         return (
                                             <tr>
-                                                {this.props.roleId === 'R3' ? (
+                                                {this.props.roleId === 'R3' && item.status !== 'Đã khám' ? (
                                                     <>
                                                         <td>{item.date}</td>
                                                         <td>{item.fullName}</td>
@@ -108,12 +109,13 @@ class ScheduleBooking extends Component {
                                                             )}
                                                         </td>
                                                     </>
-                                                ) : (
+                                                ) : this.props.roleId === 'R2' ? (
                                                     <>
                                                         <td>{item.date}</td>
                                                         <td>{item.fullName}</td>
                                                         <td>{item.birthDate}</td>
                                                         <td>{item.gender}</td>
+                                                        <td>{item.description}</td>
                                                         <td>{item.addressPatient}</td>
                                                         <td>{item.phoneNumberPatient}</td>
                                                         <td class="text-center">
@@ -179,6 +181,8 @@ class ScheduleBooking extends Component {
                                                             )}
                                                         </td>
                                                     </>
+                                                ) : (
+                                                    ''
                                                 )}
                                             </tr>
                                         );

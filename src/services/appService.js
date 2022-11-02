@@ -109,6 +109,15 @@ const appService = (function appService(props) {
             });
             return respon;
         },
+        async deleteHistoryCareHaveReExam(id, idTime, token) {
+            const respon = await axios.delete(`/api/delete-hisrories-care`, {
+                data: { id, idTime },
+                headers: {
+                    authorization: token,
+                },
+            });
+            return respon;
+        },
     };
 })();
 

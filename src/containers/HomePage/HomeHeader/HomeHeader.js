@@ -73,7 +73,20 @@ class HomeHeader extends Component {
                                                 >
                                                     Lịch khám
                                                 </NavDropdown.Item>
-                                                <NavDropdown.Item>Lịch sử khám</NavDropdown.Item>
+                                                <NavDropdown.Item
+                                                    onClick={() => {
+                                                        this.props.navigate('/ReExamPatient');
+                                                    }}
+                                                >
+                                                    Lịch tái khám
+                                                </NavDropdown.Item>
+                                                <NavDropdown.Item
+                                                    onClick={() => {
+                                                        this.props.navigate('/HistoriesCarePatient');
+                                                    }}
+                                                >
+                                                    Lịch sử khám
+                                                </NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item>
                                                     <span
