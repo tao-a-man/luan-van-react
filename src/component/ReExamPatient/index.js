@@ -60,7 +60,7 @@ class ReExamPatient extends Component {
                                     <td>{item.status}</td>
                                     <td>
                                         <button
-                                            class="btn btn-danger"
+                                            className="btn btn-danger"
                                             onClick={() => {
                                                 this.handleDeleteHistory(item.id, item.timeReExam);
                                             }}

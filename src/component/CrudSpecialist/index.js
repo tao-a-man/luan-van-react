@@ -191,7 +191,7 @@ class CrudSpecialist extends Component {
                         </InputGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button class="btn btn-secondary" onClick={this.handleCloseModalCreate}>
+                        <button className="btn btn-secondary" onClick={this.handleCloseModalCreate}>
                             Close
                         </button>
                         <button className="btn btn-primary" onClick={this.handleCreateSpecialist}>
@@ -232,10 +232,10 @@ class CrudSpecialist extends Component {
                         </InputGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button class="btn btn-secondary" onClick={this.handleCloseModalEdit}>
+                        <button className="btn btn-secondary" onClick={this.handleCloseModalEdit}>
                             Close
                         </button>
-                        <button class="btn btn-primary" onClick={this.handleEditSpecialist}>
+                        <button className="btn btn-primary" onClick={this.handleEditSpecialist}>
                             Edit Specialist
                         </button>
                     </Modal.Footer>

@@ -28,7 +28,7 @@ class Specialist extends Component {
         const respon = await appService.getAllDoctorByIdOfSpecialist(id);
         if (respon.infoDetailDoctor) {
             respon.infoDetailDoctor.forEach((item, index) => {
-                item.managerData.image = new Buffer(item.managerData.image.data, 'base64').toString('binary');
+                item.managerData.image = new Buffer.from(item.managerData.image.data, 'base64').toString('binary');
             });
             this.setState({ listDoctor: respon.infoDetailDoctor });
         }

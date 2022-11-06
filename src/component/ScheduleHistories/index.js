@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import appService from '../../services/appService';
 import { connect } from 'react-redux';
-import { Button, Modal, Table } from 'react-bootstrap';
+import { Button, InputGroup, Modal, Table, Form } from 'react-bootstrap';
 
 class ScheduleHistories extends Component {
     constructor(props) {
@@ -10,6 +10,7 @@ class ScheduleHistories extends Component {
             data: [],
             detail: [],
             show: false,
+            realData: false,
         };
     }
     componentDidMount() {
@@ -26,10 +27,27 @@ class ScheduleHistories extends Component {
     handleClose = () => {
         this.setState({ show: false, detail: [] });
     };
+    handleChangeInput = (e) => {
+        const newData = this.state.data.filter((item) => {
+            console.log(item.bookingData.fullName.includes(e.target.value));
+            return item.bookingData.fullName.includes(e.target.value);
+        });
+        this.setState({ realData: newData });
+    };
     render() {
         const dayVi = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
         return (
             <div style={{ marginTop: '70px', backgroundColor: 'rgba(255,255,255,0.9)' }}>
+                <br></br>
+                <InputGroup className="mb-3 mt-3">
+                    <InputGroup.Text id="basic-addon1">Tìm kiếm</InputGroup.Text>
+                    <Form.Control
+                        placeholder="Nhập tên người bệnh"
+                        name="search"
+                        onChange={this.handleChangeInput}
+                        aria-describedby="basic-addon1"
+                    />
+                </InputGroup>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -43,30 +61,55 @@ class ScheduleHistories extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.data.map((item) => {
-                            return (
-                                <tr>
-                                    <td>{item.bookingData.fullName}</td>
-                                    <td>{item.bookingData.birthDate}</td>
-                                    <td>{item.bookingData.gender}</td>
-                                    <td>{item.bookingData.date}</td>
-                                    <td>{item.description}</td>
-                                    <td>{item.timeReExam ? 'Có' : 'Không'}</td>
-                                    <td>
-                                        {item.timeReExam ? (
-                                            <button
-                                                class="btn btn-primary"
-                                                onClick={() => this.handleView(item.bookingId)}
-                                            >
-                                                Xem chi tiết
-                                            </button>
-                                        ) : (
-                                            'Không tái khám'
-                                        )}
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                        {this.state.realData
+                            ? this.state.realData.map((item, index) => {
+                                  return (
+                                      <tr key={index}>
+                                          <td>{item.bookingData.fullName}</td>
+                                          <td>{item.bookingData.birthDate}</td>
+                                          <td>{item.bookingData.gender}</td>
+                                          <td>{item.bookingData.date}</td>
+                                          <td>{item.description}</td>
+                                          <td>{item.timeReExam ? 'Có' : 'Không'}</td>
+                                          <td>
+                                              {item.timeReExam ? (
+                                                  <button
+                                                      className="btn btn-primary"
+                                                      onClick={() => this.handleView(item.bookingId)}
+                                                  >
+                                                      Xem chi tiết
+                                                  </button>
+                                              ) : (
+                                                  'Không tái khám'
+                                              )}
+                                          </td>
+                                      </tr>
+                                  );
+                              })
+                            : this.state.data.map((item, index) => {
+                                  return (
+                                      <tr key={index}>
+                                          <td>{item.bookingData.fullName}</td>
+                                          <td>{item.bookingData.birthDate}</td>
+                                          <td>{item.bookingData.gender}</td>
+                                          <td>{item.bookingData.date}</td>
+                                          <td>{item.description}</td>
+                                          <td>{item.timeReExam ? 'Có' : 'Không'}</td>
+                                          <td>
+                                              {item.timeReExam ? (
+                                                  <button
+                                                      className="btn btn-primary"
+                                                      onClick={() => this.handleView(item.bookingId)}
+                                                  >
+                                                      Xem chi tiết
+                                                  </button>
+                                              ) : (
+                                                  'Không tái khám'
+                                              )}
+                                          </td>
+                                      </tr>
+                                  );
+                              })}
                     </tbody>
                 </Table>
                 <Modal size="xl" show={this.state.show} onHide={this.handleClose}>
@@ -75,9 +118,8 @@ class ScheduleHistories extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         {this.state.detail.map((item, index) => {
-                            console.log(item);
                             return (
-                                <Table striped bordered hover>
+                                <Table striped bordered hover key={index}>
                                     <thead>
                                         <tr>
                                             <th>Tái khám lần</th>

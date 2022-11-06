@@ -63,7 +63,7 @@ class ReExam extends Component {
                                 <td>{item.status}</td>
                                 <td>
                                     <button
-                                        class="btn btn-danger"
+                                        className="btn btn-danger"
                                         onClick={() => {
                                             this.handleDeleteHistory(item.id, item.timeReExam);
                                         }}
@@ -71,7 +71,7 @@ class ReExam extends Component {
                                         Hủy lịch
                                     </button>
                                     <button
-                                        class="btn btn-primary"
+                                        className="btn btn-primary"
                                         onClick={() => {
                                             this.handleReExam(item.bookingId);
                                         }}

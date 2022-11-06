@@ -29,7 +29,6 @@ class ScheduleBooking extends Component {
         await appService.acceptBooking(id);
         this.getData();
     };
-    care = async (id) => {};
     render() {
         return (
             <div style={{ marginTop: '70px', backgroundColor: 'rgba(255,255,255,0.9)' }}>
@@ -43,7 +42,7 @@ class ScheduleBooking extends Component {
                         <Col>
                             <Table striped bordered hover className="mt-4 me-4">
                                 <thead>
-                                    <tr class="text-center">
+                                    <tr className="text-center">
                                         {this.props.roleId === 'R3' ? (
                                             <>
                                                 <th width="10%">Giờ khám</th>
@@ -86,14 +85,14 @@ class ScheduleBooking extends Component {
                                                         <td>{item.managerData.addressClinic}</td>
                                                         <td>{item.managerData.nameClinic}</td>
                                                         <td>{item.managerData.phoneNumber}</td>
-                                                        <td class="text-center">
+                                                        <td className="text-center">
                                                             <b>
                                                                 <font size="3" face="arial" color="#008000">
                                                                     {item.status}
                                                                 </font>
                                                             </b>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td className="text-center">
                                                             {item.status == 'Đã khám' ? (
                                                                 ''
                                                             ) : (
@@ -102,7 +101,7 @@ class ScheduleBooking extends Component {
                                                                         this.deleteBooking(item.scheduleId);
                                                                     }}
                                                                     type="button"
-                                                                    class="btn btn-danger"
+                                                                    className="btn btn-danger"
                                                                 >
                                                                     Hủy Lịch
                                                                 </button>
@@ -118,14 +117,14 @@ class ScheduleBooking extends Component {
                                                         <td>{item.description}</td>
                                                         <td>{item.addressPatient}</td>
                                                         <td>{item.phoneNumberPatient}</td>
-                                                        <td class="text-center">
+                                                        <td className="text-center">
                                                             <b>
                                                                 <font size="3" face="arial" color="#008000">
                                                                     {item.status}
                                                                 </font>
                                                             </b>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td className="text-center">
                                                             {item.status != 'Đã xác nhận' &&
                                                             item.status != 'Đã khám' ? (
                                                                 <>
@@ -134,7 +133,7 @@ class ScheduleBooking extends Component {
                                                                             this.deleteBooking(item.scheduleId);
                                                                         }}
                                                                         type="button"
-                                                                        class="btn btn-danger"
+                                                                        className="btn btn-danger"
                                                                     >
                                                                         Hủy Lịch
                                                                     </button>
@@ -143,7 +142,7 @@ class ScheduleBooking extends Component {
                                                                             this.acceptBooking(item.id);
                                                                         }}
                                                                         type="button"
-                                                                        class="btn btn-primary"
+                                                                        className="btn btn-primary"
                                                                     >
                                                                         Xác nhận
                                                                     </button>
@@ -155,7 +154,7 @@ class ScheduleBooking extends Component {
                                                                             this.setState({ isShowModalCare: true });
                                                                         }}
                                                                         type="button"
-                                                                        class="btn btn-primary"
+                                                                        className="btn btn-primary"
                                                                     >
                                                                         Khám bệnh
                                                                     </button>
@@ -174,7 +173,7 @@ class ScheduleBooking extends Component {
                                                                         this.setState({ isShowModalCare: true });
                                                                     }}
                                                                     type="button"
-                                                                    class="btn btn-primary"
+                                                                    className="btn btn-primary"
                                                                 >
                                                                     Xem lịch sử khám
                                                                 </button>

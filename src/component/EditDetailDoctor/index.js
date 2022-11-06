@@ -45,7 +45,9 @@ class EditDetailDoctor extends Component {
         const { id, fullname, username, age } = this.props.params;
         const respon = await this.getInfoDetailDoctor(id);
         if (respon.infoDetailDoctor.image) {
-            respon.infoDetailDoctor.image = new Buffer(respon.infoDetailDoctor.image.data, 'base64').toString('binary');
+            respon.infoDetailDoctor.image = new Buffer.from(respon.infoDetailDoctor.image.data, 'base64').toString(
+                'binary',
+            );
         }
         this.setState({
             specialist: specialist.specialist,
