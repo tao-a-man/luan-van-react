@@ -69,6 +69,7 @@ class BookingPage extends Component {
                     date: dateTime,
                     scheduleId: this.state.id,
                     ...this.state.infoPatient,
+                    email: this.props.email,
                 },
                 this.props.token,
             );
@@ -237,6 +238,7 @@ class BookingPage extends Component {
 const mapStateToProps = (state) => {
     return {
         token: state.token,
+        email: state.email,
     };
 };
 

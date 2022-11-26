@@ -16,6 +16,7 @@
         "classnames": "^2.3.1",
         "connected-react-router": "^6.9.1",
         "cron": "^2.1.0",
+        "jssip": "^3.10.0",
         "lodash": "^4.17.21",
         "markdown-it": "^13.0.1",
         "moment": "^2.29.0",

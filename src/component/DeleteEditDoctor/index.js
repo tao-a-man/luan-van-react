@@ -6,6 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 import { userLogoutSuccess } from '../../store/actions';
 import userService from '../../services/userService';
+import appService from '../../services/appService';
 import ModalEditUser from '../ModalEditUser';
 import ModalCreateUser from '../ModalCreateUser';
 import { Link } from 'react-router-dom';
@@ -100,6 +101,15 @@ class Manager extends Component {
                 )}
                 <button className="btn btn-primary mt-2" onClick={this.handleToggleCreateModal}>
                     Create Doctor
+                </button>
+                <button
+                    className="btn btn-primary mt-2"
+                    style={{ float: 'right' }}
+                    onClick={() => {
+                        appService.runScheduleAutomatic();
+                    }}
+                >
+                    Create Schedule
                 </button>
                 <ModalCreateUser
                     toggle={this.handleToggleCreateModal}
